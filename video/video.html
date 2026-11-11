@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GranthAI demo video (render source)</title>
+<!-- Render source for assets/granthai-demo.mp4. Every scene is a paused GSAP
+     timeline; render.js seeks frame by frame and screenshots the stage. -->
+<link rel="stylesheet" href="../site/style.css">
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/TextPlugin.min.js"></script>
+<style>
+  html, body { margin: 0; background: #0d1712; overflow: hidden; scroll-behavior: auto; }
+  #stage { width: 1280px; height: 720px; position: relative; overflow: hidden; background: var(--bg); font-family: "Inter", sans-serif; }
+  .scene { position: absolute; inset: 0; }
+  .chapter { position: absolute; left: 48px; top: 34px; font-size: 14px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--saffron); }
+  .brand { position: absolute; right: 44px; top: 26px; display: flex; align-items: center; gap: 8px; }
+  .brand img.m { width: 34px; height: 34px; } .brand img.w { height: 22px; }
+  .h { position: absolute; left: 48px; top: 64px; font-size: 38px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px; line-height: 1.15; max-width: 760px; }
+  .serif { font-family: var(--serif); font-weight: 700; }
+  .abs { position: absolute; }
+  #stage *, #stage *::before, #stage *::after { transition: none !important; animation: none !important; }
+  .phone { position: absolute; width: 330px; background: #111; border-radius: 34px; padding: 10px; box-shadow: 0 24px 50px rgba(15,26,20,.28); }
+  .phone .scr { background: var(--bg); border-radius: 26px; overflow: hidden; height: 560px; display: flex; flex-direction: column; }
+  .phone .app-body { padding: 12px; overflow: hidden; }
+  .phone .app-top { padding: 10px 14px; }
+  .win { position: absolute; background: #fff; border-radius: 14px; box-shadow: 0 18px 40px rgba(15,26,20,.18); overflow: hidden; }
+  .win .bar-top { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 14px; font-size: 14px; font-weight: 700; border-bottom: 1px solid var(--line); }
+  .win .bar-top i { width: 11px; height: 11px; border-radius: 50%; background: #e5e7eb; display: inline-block; }
+  .win .content { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .win .msg { font-size: 15.5px; max-width: 92%; }
+  .verdict { position: absolute; font-weight: 800; font-size: 20px; padding: 10px 18px; border-radius: 12px; }
+  .big-stat { font-size: 64px; font-weight: 800; letter-spacing: -1.5px; color: var(--ink); line-height: 1; }
+  .cap { font-size: 13px; color: var(--faint); }
+  .leafbar { position: absolute; height: 58px; border-radius: 29px; background: var(--leaf); display: flex; align-items: center; padding-left: 92px; font-size: 26px; font-weight: 700; color: var(--forest); box-shadow: 0 6px 16px rgba(0,0,0,.06); }
+  .tagline { font-family: var(--serif); font-weight: 700; color: var(--ink); }
+  .kid { position: absolute; width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+  .lbl { position: absolute; font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; }
+  .cardx { position: absolute; background: #fff; border-radius: 14px; box-shadow: var(--shadow); padding: 16px 18px; }
+  .ico { width: 64px; height: 64px; border-radius: 16px; background: var(--alt); display: grid; place-items: center; color: var(--forest); margin-bottom: 14px; }
+  .ico svg { width: 34px; height: 34px; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+gsap.registerPlugin(TextPlugin);
+const LEAD = 0.45, TAIL = 0.85;
+const A = '../site/assets/';
+const stage = document.getElementById('stage');
+const brand = `<div class="brand"><img class="m" src="${A}logo-mark.svg"><img class="w" src="${A}wordmark.svg"></div>`;
+const brandLight = `<div class="brand"><img class="m" src="${A}logo-mark.svg"><img class="w" src="${A}wordmark-light.svg"></div>`;
+function frac(rows, w = 210) {
+  const h = 24, gap = 30; let g = '';
+  rows.forEach((f, r) => { const y = r * gap + 3, seg = w / f.d;
+    for (let i = 0; i < f.d; i++) g += `<rect x="${i * seg + 1}" y="${y}" width="${seg - 2}" height="${h - 4}" rx="3" fill="${i < f.n ? (f.c || '#6C8577') : '#eef1ee'}"/>`;
+    g += `<text x="${w + 10}" y="${y + 15}" font-size="13" font-weight="700" fill="#1f2b24" font-family="Inter">${f.label}</text>`; });
+  return `<svg width="${w + 110}" height="${rows.length * gap + 4}">${g}</svg>`;
+}
+function radar(vals, size = 260) {
+  const D = ['Maker', 'Explorer', 'Creator', 'Helper', 'Leader', 'Organiser'];
+  const c = size / 2, r = size / 2 - 42, n = 6, pt = (i, k) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; return [c + Math.cos(a) * r * k, c + Math.sin(a) * r * k]; };
+  let g = ''; [0.33, 0.66, 1].forEach(k => g += `<polygon points="${D.map((_, i) => pt(i, k).join(',')).join(' ')}" fill="none" stroke="#dfe6e1"/>`);
+  D.forEach((d, i) => { const [x, y] = pt(i, 1.25); g += `<text x="${x}" y="${y + 4}" text-anchor="middle" font-size="13" fill="#4b5563" font-family="Inter">${d}</text>`; });
+  g += `<polygon id="rad" points="${vals.map((v, i) => pt(i, Math.max(.06, v)).join(',')).join(' ')}" fill="rgba(192,120,42,.22)" stroke="#c0782a" stroke-width="2.5"/>`;
+  return `<svg width="${size}" height="${size}">${g}</svg>`;
+}
+
+/* Each scene: html, and anim(tl, T) where T(i, dt) = time of sentence i plus dt. */
+const SCENES = {
+s01_intro: {
+  html: `<div class="scene" style="background:var(--sage)">
+    <div id="i-line" class="abs serif" style="left:0;right:0;top:250px;text-align:center;font-size:58px;color:var(--ink)"></div>
+    <div id="i-logo" class="abs" style="left:0;right:0;top:170px;display:flex;justify-content:center;align-items:center;gap:22px;opacity:0">
+      <img src="${A}logo-mark.svg" style="width:128px;height:128px"><img src="${A}wordmark.svg" style="height:92px"></div>
+    <div id="i-mean" class="abs" style="left:0;right:0;top:350px;text-align:center;font-size:26px;color:var(--ink-2);opacity:0">
+      <span class="deva" style="font-size:40px;color:var(--forest)">ग्रन्थ</span>&nbsp;&nbsp; granth: a book &nbsp;·&nbsp; root: <i>to tie together</i></div>
+    <div id="i-leaves">
+      <div class="leafbar" style="left:300px;top:440px;width:680px">Learning</div>
+      <div class="leafbar" style="left:300px;top:512px;width:680px;background:var(--leaf-2)">People</div>
+      <div class="leafbar" style="left:300px;top:584px;width:680px">Opportunity</div>
+      <svg class="abs" style="left:300px;top:420px" width="700" height="250"><path id="i-thread" d="M48 8 V 238" stroke="#D9913C" stroke-width="7" stroke-linecap="round" fill="none" stroke-dasharray="240" stroke-dashoffset="240"/>
+      <circle cx="48" cy="49" r="7" fill="#1f3a2e" class="hole"/><circle cx="48" cy="121" r="7" fill="#1f3a2e" class="hole"/><circle cx="48" cy="193" r="7" fill="#1f3a2e" class="hole"/></svg>
+    </div></div>`,
+  anim(tl, T) {
+    tl.to('#i-line', { text: { value: 'Every child has a spark.' }, duration: 1.6, ease: 'none' }, T(0, 0.2));
+    tl.to('#i-line', { opacity: 0, y: -20, duration: 0.4 }, T(1, -0.4));
+    tl.fromTo('#i-logo', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.6)' }, T(1, -0.1));
+    tl.to('#i-logo', { y: -60, scale: 0.8, duration: 0.6 }, T(2, -0.2));
+    tl.fromTo('#i-mean', { opacity: 0, y: 14 }, { opacity: 1, y: -80, duration: 0.6 }, T(2, 0.1));
+    tl.from('#i-leaves .leafbar', { opacity: 0, x: -60, stagger: 0.25, duration: 0.6 }, T(3, 0));
+    tl.from('.hole', { opacity: 0, stagger: 0.25, duration: 0.3 }, T(3, 0.3));
+    tl.to('#i-thread', { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut' }, T(3, 1.5));
+  } },
+
+s02_problem: {
+  html: `<div class="scene"><div class="chapter">The problem</div>${brand}
+    <div class="h">In Ireland, where a child starts still decides where they finish.</div>
+    <div class="abs" style="left:48px;top:210px;width:560px">
+      <div style="font-size:17px;color:var(--muted);margin-bottom:22px">Completed the Leaving Certificate</div>
+      <div style="display:flex;align-items:flex-end;gap:60px;height:320px;padding-left:20px">
+        <div style="text-align:center"><div class="big-stat" id="p-n1">0%</div><div id="p-b1" style="width:150px;height:0;background:var(--saffron);border-radius:8px 8px 0 0;margin-top:12px"></div><div style="font-weight:700;margin-top:10px">Children in care</div></div>
+        <div style="text-align:center"><div class="big-stat" id="p-n2">0%</div><div id="p-b2" style="width:150px;height:0;background:var(--forest);border-radius:8px 8px 0 0;margin-top:12px"></div><div style="font-weight:700;margin-top:10px">All children</div></div>
+      </div><div class="cap" style="margin-top:10px">Source: Central Statistics Office, December 2025</div></div>
+    <div id="p-right" class="abs" style="left:700px;top:200px;width:520px;height:420px">
+      <svg width="520" height="380" id="p-svg"></svg>
+      <div style="text-align:center;font-size:21px;font-weight:700;color:var(--ink)">1 teacher · 25 children · every evening?</div></div></div>`,
+  anim(tl, T) {
+    const svg = document.getElementById('p-svg'); let g = `<circle cx="260" cy="190" r="34" fill="#1f3a2e"/><text x="260" y="197" fill="#fff" font-size="18" font-weight="700" text-anchor="middle" font-family="Inter">Teacher</text>`;
+    for (let i = 0; i < 25; i++) { const a = i / 25 * Math.PI * 2, r = 120 + (i % 2) * 42; g += `<circle class="pk" cx="${260 + Math.cos(a) * r * 1.25}" cy="${190 + Math.sin(a) * r * 0.95}" r="13" fill="${i % 5 === 0 ? '#c0782a' : '#8FA79A'}"/>`; }
+    svg.innerHTML = g;
+    tl.from('.scene .h', { opacity: 0, y: 16, duration: 0.6 }, T(0, 0));
+    tl.to('#p-b1', { height: 54 * 2.6, duration: 1.2, ease: 'power2.out' }, T(0, 2.4));
+    const c1 = { v: 0 }, c2 = { v: 0 }, n1 = document.getElementById('p-n1'), n2 = document.getElementById('p-n2');
+    tl.to(c1, { v: 54, duration: 1.2, onUpdate: () => n1.textContent = Math.round(c1.v) + '%' }, T(0, 2.4));
+    tl.to('#p-b2', { height: 87 * 2.6, duration: 1.2, ease: 'power2.out' }, T(0, 5.0));
+    tl.to(c2, { v: 87, duration: 1.2, onUpdate: () => n2.textContent = Math.round(c2.v) + '%' }, T(0, 5.0));
+    tl.from('#p-right', { opacity: 0, duration: 0.5 }, T(1, -0.3));
+    tl.from('.pk', { scale: 0, transformOrigin: 'center', stagger: 0.06, duration: 0.3 }, T(1, 0.2));
+    tl.to('.pk', { opacity: 0.35, stagger: { each: 0.05, from: 'random' }, duration: 0.3 }, T(1, 4.2));
+  } },
+
+s03_profile: {
+  html: `<div class="scene"><div class="chapter">1 · Create a profile</div>${brand}
+    <div class="h" style="max-width:540px">It starts with a profile.</div>
+    <div class="phone" style="left:120px;top:120px"><div class="scr">
+      <div class="app-top"><div class="who"><div class="avatar">A</div><div><div class="nm" id="pf-top">New learner</div><div class="sub" id="pf-sub">Age 8 · Explorer</div></div></div></div>
+      <div class="app-body"><div class="panel" style="margin:0">
+        <span class="label" style="margin-top:0">First name</span><div class="field" id="pf-name" style="height:40px"></div>
+        <span class="label">Age: <b id="pf-age">8</b></span><div style="height:8px;background:#e5e7eb;border-radius:9px;position:relative"><div id="pf-slide" style="position:absolute;left:0;top:-5px;width:18px;height:18px;border-radius:50%;background:var(--forest)"></div></div>
+        <span class="label">What do you love?</span>
+        <div class="chips"><span class="chip" id="c-fb">⚽ Football</span><span class="chip" id="c-sp">🚀 Space</span><span class="chip" id="c-dr">🎨 Drawing</span><span class="chip">🎵 Music</span><span class="chip">💻 Coding</span><span class="chip">🦔 Animals</span><span class="chip">🧪 Experiments</span><span class="chip">📚 Stories</span></div>
+        <span class="label">Language</span><div class="field" style="height:40px" id="pf-lang">English</div>
+        <div class="row" style="margin-top:12px;font-size:13px;color:var(--muted)"><span id="pf-ck" style="width:18px;height:18px;border:2px solid var(--forest);border-radius:4px;display:inline-grid;place-items:center;color:#fff;font-size:12px"></span> Consent confirmed by teacher (Ms Byrne)</div>
+      </div><div class="small-btn" id="pf-save" style="text-align:center;margin-top:12px">Save profile</div></div></div></div>
+    <div class="abs" style="left:640px;top:150px;width:560px;text-align:center" id="pf-right">
+      <div style="font-size:20px;font-weight:700;margin-bottom:6px">Aoife’s interest profile</div>
+      <div style="display:flex;justify-content:center">${radar([0.15, 0.15, 0.15, 0.15, 0.08, 0.06], 330)}</div>
+      <div id="pf-learn" style="margin-top:16px;font-size:18px;color:var(--ink-2)">Explorer mode for age 9: playful, encouraging, short sentences.<br><b>GranthAI starts learning how she learns.</b></div></div></div>`,
+  anim(tl, T) {
+    tl.from('.phone', { opacity: 0, y: 30, duration: 0.6 }, T(0, 0));
+    tl.from('#pf-right', { opacity: 0, duration: 0.6 }, T(0, 0.4));
+    tl.to('#pf-name', { text: { value: 'Aoife' }, duration: 0.7, ease: 'none' }, T(1, 0));
+    tl.set('#pf-top', { text: 'Aoife' }, T(1, 0.7));
+    tl.to('#pf-slide', { left: 22, duration: 0.5 }, T(1, 0.6));
+    tl.set('#pf-age', { text: '9' }, T(1, 0.9)); tl.set('#pf-sub', { text: 'Age 9 · Explorer' }, T(1, 0.9));
+    const R = (i, k) => { const a = -Math.PI / 2 + i * Math.PI / 3, r = 165 - 42; return [165 + Math.cos(a) * r * k, 165 + Math.sin(a) * r * k]; };
+    const poly = v => v.map((k, i) => R(i, Math.max(0.06, k)).join(',')).join(' ');
+    [['#c-fb', [0.4, 0.15, 0.15, 0.4, 0.2, 0.06], 0.6], ['#c-sp', [0.4, 1, 0.15, 0.4, 0.2, 0.06], 2.0], ['#c-dr', [0.4, 1, 1, 0.4, 0.2, 0.06], 3.2]].forEach(([id, v, dt]) => {
+      tl.set(id, { attr: { 'aria-pressed': 'true' } }, T(2, dt));
+      tl.to('#rad', { attr: { points: poly(v) }, duration: 0.5 }, T(2, dt));
+    });
+    tl.from('#pf-lang', { backgroundColor: '#fbefe0', duration: 0.6 }, T(3, 0.4));
+    tl.set('#pf-ck', { backgroundColor: '#1f3a2e', text: '✓' }, T(3, 1.6));
+    tl.set('#pf-save', { text: 'Profile saved ✓' }, T(3, 3.0));
+    tl.from('#pf-learn', { opacity: 0, y: 10, duration: 0.5 }, T(3, 3.2));
+  } },
+
+s04_compare: {
+  html: `<div class="scene"><div class="chapter">2 · The difference</div>${brand}
+    <div class="h" style="font-size:32px">Same question. Two very different answers.</div>
+    <div class="win" style="left:48px;top:128px;width:575px;height:540px" id="w-gen">
+      <div class="bar-top" style="background:#f3f4f6"><i></i><i></i><i></i>&nbsp; General AI chatbot (e.g. ChatGPT)</div>
+      <div class="content">
+        <div class="msg me" id="g-q"></div>
+        <div class="msg bot generic" id="g-a"><span class="tag">Chatbot</span>To add 3/4 + 1/2, find a common denominator of 4: 1/2 = 2/4. Then 3/4 + 2/4 = 5/4. <b>The answer is 5/4, or 1 ¼.</b> Let me know if you have any other questions!</div>
+        <div class="msg me" id="g-copy">5/4 ✓ (copied)</div>
+      </div>
+      <div class="verdict" id="g-v" style="left:24px;bottom:24px;background:#fde8e8;color:#9b1c1c">What did Aoife learn? Nothing.</div>
+    </div>
+    <div class="win" style="left:657px;top:128px;width:575px;height:540px" id="w-gr">
+      <div class="bar-top" style="background:var(--forest);color:#fff"><img src="${A}logo-mark.svg" style="width:22px;height:22px;border-radius:5px"> GranthAI</div>
+      <div class="abs" style="left:0;right:0;top:42px;bottom:62px;overflow:hidden"><div class="content" id="gr-c" style="gap:8px">
+        <div class="msg bot" id="r-1"><span class="tag">GranthAI tutor</span>Ooh, good one, Aoife! Have a go first. What do you think 3/4 + 1/2 is?</div>
+        <div class="msg me" id="r-2">4/6</div>
+        <div class="msg bot" id="r-3"><span class="tag">Misconception: adds tops and bottoms</span>You added the tops (3+1) and the bottoms (4+2). Loads of people do! But halves and quarters are different sizes:
+          ${frac([{ n: 3, d: 4, label: '3/4' }, { n: 2, d: 4, c: '#c0782a', label: '1/2 = 2/4' }], 200)}How many quarters altogether?</div>
+        <div class="msg me" id="r-4">5/4!</div>
+        <div class="msg bot" id="r-5"><span class="tag">Correct</span>Yes! 🎉 You made the pieces the same size first. <b>+20 XP</b></div>
+      </div></div>
+      <div class="abs" style="left:20px;right:20px;bottom:16px" id="r-m"><div class="kv"><span>Mastery: adding fractions</span><b id="r-mv">32%</b></div><div class="bar saff"><i id="r-mb" style="width:32%"></i></div></div>
+    </div></div>`,
+  anim(tl, T) {
+    tl.from('.h', { opacity: 0, duration: 0.5 }, T(0, 0));
+    tl.from('#w-gen', { opacity: 0, x: -30, duration: 0.6 }, T(0, 0.3));
+    tl.from('#w-gr', { opacity: 0, x: 30, duration: 0.6 }, T(0, 0.5));
+    tl.to('#w-gr', { opacity: 0.35, duration: 0.3 }, T(1, 0));
+    tl.to('#g-q', { text: { value: 'what is 3/4 + 1/2? just tell me the answer' }, duration: 1.6, ease: 'none' }, T(1, 0.6));
+    tl.from('#g-a', { opacity: 0, y: 12, duration: 0.5 }, T(2, 0));
+    tl.from('#g-copy', { opacity: 0, y: 12, duration: 0.4 }, T(3, 0));
+    tl.from('#g-v', { opacity: 0, scale: 0.8, duration: 0.5, ease: 'back.out(2)' }, T(3, 1.0));
+    tl.to('#w-gen', { opacity: 0.4, duration: 0.4 }, T(4, -0.2));
+    tl.to('#w-gr', { opacity: 1, duration: 0.4 }, T(4, -0.2));
+    tl.from('#r-1', { opacity: 0, y: 12, duration: 0.4 }, T(4, 0));
+    tl.from('#r-2', { opacity: 0, y: 12, duration: 0.4 }, T(4, 2.2));
+    tl.from('#r-3', { opacity: 0, y: 12, duration: 0.5 }, T(5, 0));
+    tl.to('#gr-c', { y: -150, duration: 0.6, ease: 'power2.inOut' }, T(6, 2.2));
+    tl.from('#r-4', { opacity: 0, y: 12, duration: 0.4 }, T(6, 2.6));
+    tl.from('#r-5', { opacity: 0, y: 12, duration: 0.4 }, T(6, 3.4));
+    tl.to('#r-mb', { width: '61%', duration: 0.8 }, T(6, 3.6));
+    tl.to('#r-mv', { text: '61%', duration: 0.01 }, T(6, 4.0));
+    tl.to('#w-gen', { opacity: 1, duration: 0.4 }, T(6, 4.6));
+  } },
+
+s05_tracing: {
+  html: `<div class="scene"><div class="chapter">3 · Learns how she learns</div>${brand}
+    <div class="h">Bayesian knowledge tracing, after every answer</div>
+    <svg class="abs" style="left:48px;top:170px" width="760" height="460" id="k-svg"></svg>
+    <div class="abs" style="left:860px;top:190px;width:370px;display:flex;flex-direction:column;gap:16px" id="k-cards">
+      <div class="panel" style="border-left:4px solid var(--good)"><b>Mastered</b><div class="meta">Equivalent fractions · 92%</div></div>
+      <div class="panel" style="border-left:4px solid var(--warn)"><b>Fading</b><div class="meta">Decimals · review on Thursday</div></div>
+      <div class="panel" style="border-left:4px solid var(--saffron)"><b>Next up</b><div class="meta">Adding fractions · 61% and climbing</div></div></div></div>`,
+  anim(tl, T) {
+    const s = document.getElementById('k-svg'); const W = 720, H = 380, x0 = 40;
+    const pts = [0.32, 0.18, 0.47, 0.61, 0.74, 0.70, 0.83, 0.89, 0.86, 0.92];
+    const xy = pts.map((p, i) => [x0 + i * (W - x0) / (pts.length - 1), 20 + (1 - p) * H]);
+    let g = `<line x1="${x0}" y1="${20 + H}" x2="${W}" y2="${20 + H}" stroke="#cfd8d2"/><text x="${x0}" y="${H + 50}" font-size="14" fill="#6b7280" font-family="Inter">Attempts →</text>`;
+    [0.25, 0.5, 0.75, 1].forEach(v => g += `<line x1="${x0}" x2="${W}" y1="${20 + (1 - v) * H}" y2="${20 + (1 - v) * H}" stroke="#eef1ee"/><text x="0" y="${25 + (1 - v) * H}" font-size="13" fill="#6b7280" font-family="Inter">${v * 100}%</text>`);
+    g += `<path id="k-line" d="M${xy.map(p => p.join(' ')).join(' L')}" fill="none" stroke="#c0782a" stroke-width="3.5" stroke-linejoin="round" stroke-dasharray="1400" stroke-dashoffset="1400"/>`;
+    xy.forEach(([x, y], i) => g += `<circle class="kp" cx="${x}" cy="${y}" r="7" fill="${[1, 5, 8].includes(i) ? '#fff' : '#c0782a'}" stroke="#c0782a" stroke-width="3"/>`);
+    s.innerHTML = g;
+    tl.from('.h', { opacity: 0, duration: 0.5 }, T(0, 0));
+    tl.to('#k-line', { strokeDashoffset: 0, duration: 3.2, ease: 'none' }, T(0, 0.4));
+    tl.from('.kp', { scale: 0, transformOrigin: 'center', stagger: 0.32, duration: 0.2 }, T(0, 0.4));
+    tl.from('#k-cards .panel', { opacity: 0, x: 30, stagger: 0.9, duration: 0.5 }, T(0, 1.6));
+  } },
+
+s06_feed: {
+  html: `<div class="scene"><div class="chapter">4 · Motivation and wellbeing</div>${brand}
+    <div class="phone" style="left:130px;top:96px"><div class="scr"><div class="app-top"><div class="who"><div class="avatar">A</div><div><div class="nm">Discover</div><div class="sub">Made for Aoife</div></div></div><span class="pill s">4-day streak</span></div>
+      <div class="app-body" id="f-list">
+        <div class="panel" style="background:var(--forest);color:#fff"><div class="kv" style="color:#d5e1d8"><span>Quest: unlock the <b style="color:#fff">Space Club badge</b></span><b style="color:#fff">2/3</b></div><div class="bar"><i style="width:66%;background:var(--saffron-soft)"></i></div></div>
+        <div class="panel feed-item"><div class="thumb">⚽</div><div><span class="type">Explainer</span><h4>Why does a football curve?</h4><span class="why">Because you like football</span></div></div>
+        <div class="panel feed-item"><div class="thumb">🚀</div><div><span class="type">Project</span><h4>Build a straw rocket this weekend</h4><span class="why">Because you like space</span></div></div>
+        <div class="panel feed-item"><div class="thumb">📘</div><div><span class="type">Book</span><h4>Hidden Figures (Young Readers’ Edition)</h4><span class="why">Because you like space</span></div></div>
+      </div></div></div>
+    <div class="phone" style="left:700px;top:96px" id="c-ph"><div class="scr"><div class="app-top"><div class="who"><div class="avatar">A</div><div><div class="nm">Check-in</div><div class="sub">Optional · private</div></div></div></div>
+      <div class="app-body"><div class="panel"><h4>How are you feeling today?</h4><div class="moods">
+        <span class="mood"><span>😄</span>Great</span><span class="mood"><span>🙂</span>Good</span><span class="mood"><span>😐</span>Okay</span><span class="mood" id="m-low"><span>😕</span>Low</span><span class="mood"><span>😢</span>Upset</span></div></div>
+        <div class="msg bot" id="c-r" style="max-width:100%"><span class="tag">GranthAI</span>Thanks for telling me. It’s okay to feel low sometimes. Would you like to talk to a grown-up you trust at school?</div>
+        <div class="small-btn" id="c-b" style="margin-top:10px;text-align:center">Yes, ask Ms Byrne for a chat</div>
+        <div class="panel" id="c-ok" style="margin-top:10px;border-left:4px solid var(--good)"><b style="font-size:14px">✓ Ms Byrne has been told.</b><div class="meta">GranthAI never keeps secrets about safety.</div></div>
+      </div></div></div>
+    <div class="abs" id="c-badge" style="left:480px;top:610px;width:200px;text-align:center;font-size:13px;font-weight:700;color:var(--forest);background:#e6efe9;border-radius:99px;padding:8px">No emotion detection</div></div>`,
+  anim(tl, T) {
+    tl.from('.phone:first-of-type', { opacity: 0, y: 30, duration: 0.6 }, T(0, 0));
+    ['#f-list .panel:nth-child(1)', '#f-list .panel:nth-child(2)', '#f-list .panel:nth-child(3)', '#f-list .panel:nth-child(4)'].forEach((s, i) => tl.from(s, { opacity: 0, x: -24, duration: 0.5 }, T(0, [0.8, 3.4, 5.0, 6.6][i])));
+    tl.from('#c-ph', { opacity: 0, y: 30, duration: 0.6 }, T(1, -0.2));
+    tl.set('#m-low', { attr: { 'aria-pressed': 'true' } }, T(1, 1.4));
+    tl.from('#c-r', { opacity: 0, y: 12, duration: 0.4 }, T(1, 2.0));
+    tl.from('#c-b', { opacity: 0, duration: 0.3 }, T(1, 3.2));
+    tl.to('#c-b', { scale: 0.95, yoyo: true, repeat: 1, duration: 0.12 }, T(2, 0));
+    tl.from('#c-ok', { opacity: 0, y: 12, duration: 0.4 }, T(2, 0.5));
+    tl.from('#c-badge', { opacity: 0, duration: 0.4 }, T(1, 1.0));
+  } },
+
+s07_clusters: {
+  html: `<div class="scene"><div class="chapter">5 · Interest clusters across schools</div>${brand}
+    <div class="h" style="font-size:32px">Friends who share the same passions, across schools</div>
+    <div id="cl" class="abs" style="left:48px;top:130px;width:760px;height:540px;background:#fff;border-radius:16px;box-shadow:var(--shadow)"></div>
+    <div class="cardx" id="cl-card" style="left:850px;top:200px;width:380px">
+      <span class="type">Aoife’s club</span><h3 style="font-size:24px;margin:4px 0 10px">Space Club · 3 schools</h3>
+      <div class="member" style="font-size:16px"><i style="background:#c0782a"></i>Aoife · School A</div><br>
+      <div class="member" style="font-size:16px"><i style="background:#2f5e46"></i>Zofia · School B</div><br>
+      <div class="member" style="font-size:16px"><i style="background:#6d8fb3"></i>Tomás · School C</div><br>
+      <div class="member" style="font-size:16px"><i style="background:#2f5e46"></i>Amara · School B</div>
+      <div class="meta" style="margin-top:14px;font-size:14px">Project: design a base on Mars. Teacher-supervised video call, Thursday 2pm.</div></div></div>`,
+  anim(tl, T) {
+    const box = document.getElementById('cl'); const C = ['#c0782a', '#2f5e46', '#6d8fb3', '#9b6bb0'];
+    const cent = [[200, 150, 'Space & experiments'], [560, 150, 'Football & dance'], [200, 400, 'Drawing & stories'], [560, 400, 'Robots & coding']];
+    let h = ['School A', 'School B', 'School C', 'School D'].map((s, i) => `<div class="lbl sch" style="left:${30 + i * 185}px;top:18px;width:150px;color:${C[i]}">${s}</div>`).join('');
+    h += cent.map((c, j) => `<div class="ring abs" style="left:${c[0] - 105}px;top:${c[1] - 95}px;width:210px;height:190px;border-radius:50%;border:2px dashed ${j === 0 ? '#c0782a' : '#cfd8d2'};background:${j === 0 ? 'rgba(192,120,42,.07)' : 'rgba(108,133,119,.05)'}"></div><div class="lbl ring" style="left:${c[0] - 100}px;top:${c[1] + (j < 2 ? -122 : 102)}px;width:200px">${c[2]}</div>`).join('');
+    const kids = [];
+    for (let i = 0; i < 28; i++) { const s = i % 4, cl = (i * 7 + Math.floor(i / 4)) % 4; kids.push({ s, cl: i === 0 ? 0 : cl }); }
+    const cnt = [0, 0, 0, 0], col = [0, 0, 0, 0];
+    kids.forEach((k, i) => {
+      k.x0 = 60 + k.s * 185 + (col[k.s] % 3) * 34; k.y0 = 70 + Math.floor(col[k.s] / 3) * 38; col[k.s]++;
+      const n = cnt[k.cl]++, a = n * 2.4, r = n === 0 ? 0 : 22 + 13 * Math.sqrt(n - 1);
+      k.x1 = cent[k.cl][0] + Math.cos(a) * r - 9; k.y1 = cent[k.cl][1] + Math.sin(a) * r * 0.9 - 9;
+      h += `<div class="kid" id="kid${i}" style="left:${k.x0}px;top:${k.y0}px;background:${C[k.s]};${i === 0 ? 'width:24px;height:24px;border-color:#0f1a14' : ''}"></div>`;
+    });
+    h += `<div class="lbl" id="me-l" style="left:${kids[0].x0 - 30}px;top:${kids[0].y0 + 26}px;width:80px;color:#0f1a14;z-index:3;text-shadow:0 0 3px #fff,0 0 3px #fff">Aoife</div>`;
+    box.innerHTML = h;
+    tl.from('.h', { opacity: 0, duration: 0.5 }, T(0, 0));
+    tl.from('#cl', { opacity: 0, y: 20, duration: 0.6 }, T(0, 0));
+    tl.from('.kid', { scale: 0, stagger: 0.03, duration: 0.3 }, T(0, 0.4));
+    tl.from('.ring', { opacity: 0, duration: 0.6 }, T(1, 0.6));
+    kids.forEach((k, i) => tl.to('#kid' + i, { left: k.x1, top: k.y1, duration: 1.3, ease: 'power3.inOut' }, T(1, 1.2 + i * 0.05)));
+    tl.to('#me-l', { left: kids[0].x1 - 28, top: kids[0].y1 - 24, duration: 1.3, ease: 'power3.inOut' }, T(1, 1.2));
+    tl.to('.sch', { opacity: 0, duration: 0.5 }, T(1, 1.0));
+    tl.from('#cl-card', { opacity: 0, x: 30, duration: 0.6 }, T(2, 0.2));
+    tl.from('#cl-card .member', { opacity: 0, stagger: 0.35, duration: 0.3 }, T(2, 0.8));
+  } },
+
+s08_mentors: {
+  html: `<div class="scene"><div class="chapter">6 · Mentor matching</div>${brand}
+    <div class="h" style="font-size:32px">A vetted retired teacher for every club</div>
+    <svg class="abs" style="left:0;top:0" width="1280" height="720" id="mt-svg"></svg>
+    <div id="mt-clubs"></div><div id="mt-ments"></div>
+    <div class="cardx" id="mt-score" style="left:820px;top:470px;width:410px"><b style="font-size:16px">Space Club ↔ Pádraig Kelly</b>
+      <div class="kv" style="margin-top:10px"><span>Subject fit</span><b>94%</b></div><div class="bar"><i style="width:94%"></i></div>
+      <div class="kv" style="margin-top:8px"><span>Language · English, Gaeilge</span><b>✓</b></div><div class="kv"><span>Free on Thursday</span><b>✓</b></div></div>
+    <div class="abs" id="mt-tags" style="left:48px;top:620px;display:flex;gap:14px">
+      <span class="pill" style="font-size:16px;padding:9px 16px">Role models for children</span><span class="pill s" style="font-size:16px;padding:9px 16px">Meaningful, paid work for retired teachers</span></div></div>`,
+  anim(tl, T) {
+    const clubs = ['Space Club', 'Football & dance', 'Drawing & stories', 'Robots & coding'];
+    const ments = [['Pádraig Kelly', 'Retired engineer & science teacher'], ['Gráinne Walsh', 'Retired PE teacher'], ['Seán Murphy', 'Retired art teacher'], ['Mary O’Neill', 'Retired maths teacher']];
+    document.getElementById('mt-clubs').innerHTML = clubs.map((c, i) => `<div class="cardx mc" style="left:80px;top:${140 + i * 112}px;width:260px;${i === 0 ? 'outline:2.5px solid var(--saffron)' : ''}"><b style="font-size:17px">${c}</b><div class="meta">4 children · ${i === 0 ? '3' : '2'} schools</div></div>`).join('');
+    document.getElementById('mt-ments').innerHTML = ments.map((m, i) => `<div class="cardx mm" style="left:470px;top:${140 + i * 112}px;width:300px;display:flex;gap:12px;align-items:center"><div class="avatar" style="background:var(--sage-deep)">${m[0].split(' ').map(x => x[0]).join('')}</div><div><b style="font-size:16px">${m[0]}</b><div class="meta">${m[1]} · Garda vetted</div></div></div>`).join('');
+    document.getElementById('mt-svg').innerHTML = clubs.map((_, i) => `<path class="ml" d="M340 ${178 + i * 112} C 405 ${178 + i * 112}, 405 ${178 + i * 112}, 470 ${178 + i * 112}" stroke="${i === 0 ? '#c0782a' : '#8FA79A'}" stroke-width="${i === 0 ? 4 : 2.5}" fill="none" stroke-dasharray="140" stroke-dashoffset="140"/>`).join('');
+    tl.from('.h', { opacity: 0, duration: 0.5 }, T(0, 0));
+    tl.from('.mc', { opacity: 0, x: -20, stagger: 0.15, duration: 0.4 }, T(0, 0.2));
+    tl.from('.mm', { opacity: 0, x: 20, stagger: 0.15, duration: 0.4 }, T(0, 1.0));
+    tl.to('.ml', { strokeDashoffset: 0, stagger: 0.4, duration: 0.6 }, T(0, 2.4));
+    tl.from('#mt-score', { opacity: 0, y: 20, duration: 0.5 }, T(0, 4.2));
+    tl.from('#mt-tags .pill', { opacity: 0, y: 10, stagger: 1.4, duration: 0.4 }, T(1, 0));
+  } },
+
+s09_teachers: {
+  html: `<div class="scene"><div class="chapter">7 · For teachers</div>${brand}
+    <div class="h" style="font-size:32px">Teachers get their time back</div>
+    <div class="win" style="left:48px;top:122px;width:720px;height:560px" id="t-win">
+      <div class="bar-top"><div class="avatar" style="width:26px;height:26px;font-size:11px;background:var(--forest)">MB</div> Ms Byrne · 4th Class · 24 pupils</div>
+      <div class="content" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="panel" style="margin:0"><h4>Class mastery</h4><table class="heat"><tr><th></th><th>Got it</th><th>Practising</th><th>Stuck</th></tr>
+          <tr><th>Equivalent fractions</th><td style="background:rgba(47,94,70,.6);color:#fff">15</td><td style="background:rgba(47,94,70,.3)">6</td><td style="background:rgba(47,94,70,.18)">3</td></tr>
+          <tr id="t-row"><th>Adding fractions</th><td style="background:rgba(47,94,70,.32)">7</td><td style="background:rgba(47,94,70,.42)">10</td><td style="background:#fbe3c6">7</td></tr>
+          <tr><th>Decimals</th><td style="background:rgba(47,94,70,.45)">11</td><td style="background:rgba(47,94,70,.4)">9</td><td style="background:rgba(47,94,70,.22)">4</td></tr></table></div>
+        <div class="panel" style="margin:0" id="t-mis"><span class="type">Spreading misconception</span><h4>7 pupils add tops and bottoms</h4><div class="small-btn" id="t-btn" style="display:inline-block">Plan a 10-minute mini-lesson</div>
+          <ol id="t-plan" style="margin:10px 0 0;padding-left:18px;font-size:13px;color:var(--text)"><li>Fraction strips warm-up</li><li>Pairs: 3/4 + 1/2 with strips</li><li>Spot the mistake: 4/6</li><li>Exit ticket, auto-marked</li></ol></div>
+        <div class="panel" style="margin:0" id="t-flags"><h4>Needs a quiet word</h4><div class="flag"><span class="dot" style="background:var(--warn)"></span><div><b>3 pupils</b> not logged in for 5 days</div></div><div class="flag"><span class="dot" style="background:var(--warn)"></span><div><b>1 pupil</b> asked for a chat</div></div><div class="flag"><span class="dot" style="background:var(--good)"></span><div><b>Aoife</b> 32% → 61% on fractions</div></div></div>
+        <div class="panel" style="margin:0" id="t-out"><h4>Outdoor ideas</h4><div class="flag"><span class="dot" style="background:var(--sage-deep)"></span><div><b>Fraction hunt</b> in the yard</div></div><div class="flag"><span class="dot" style="background:var(--sage-deep)"></span><div><b>Map the school garden</b></div></div><div class="flag"><span class="dot" style="background:var(--sage-deep)"></span><div><b>Straw-rocket launch</b></div></div></div>
+      </div></div>
+    <blockquote class="voice abs" id="t-q" style="left:810px;top:300px;width:420px;font-size:22px">This is a built up area and children struggle to find safe, outdoor space to simply play.<footer>Principal, DEIS school, in our survey</footer></blockquote></div>`,
+  anim(tl, T) {
+    tl.from('.h', { opacity: 0, duration: 0.5 }, T(0, 0));
+    tl.from('#t-win', { opacity: 0, y: 24, duration: 0.6 }, T(0, 0.2));
+    tl.from('#t-mis', { opacity: 0, duration: 0.4 }, T(1, 2.4));
+    tl.to('#t-btn', { scale: 0.94, yoyo: true, repeat: 1, duration: 0.12 }, T(1, 4.2));
+    tl.from('#t-plan li', { opacity: 0, x: -10, stagger: 0.25, duration: 0.3 }, T(1, 4.5));
+    tl.from('#t-flags', { opacity: 0, duration: 0.4 }, T(1, 6.2));
+    tl.from('#t-out', { opacity: 0, duration: 0.4 }, T(2, 0));
+    tl.from('#t-q', { opacity: 0, x: 30, duration: 0.6 }, T(2, 2.4));
+  } },
+
+s10_future: {
+  html: `<div class="scene"><div class="chapter">8 · Future Me</div>${brand}
+    <div class="h" style="font-size:32px">From interests to real routes</div>
+    <div class="abs" style="left:48px;top:200px;display:grid;grid-template-columns:300px 60px 380px 60px 380px;align-items:center" id="fm">
+      <div class="cardx" style="position:relative"><span class="type">Aoife loves</span><div style="font-size:22px;font-weight:700;margin-top:6px">🚀 Space · 🎨 Drawing</div></div><div style="font-size:34px;text-align:center;color:var(--sage-deep)">→</div>
+      <div style="display:grid;gap:14px"><div class="cardx" style="position:relative"><b style="font-size:19px">Aerospace engineer</b></div><div class="cardx" style="position:relative"><b style="font-size:19px">Animator</b></div><div class="cardx" style="position:relative"><b style="font-size:19px">Astronomer</b></div></div>
+      <div style="font-size:34px;text-align:center;color:var(--sage-deep)">→</div>
+      <div style="display:grid;gap:14px"><div class="cardx" style="position:relative">CAO engineering or science degree</div><div class="cardx" style="position:relative">PLC course in animation</div><div class="cardx" style="position:relative">Apprenticeships · HEAR access route</div></div></div></div>`,
+  anim(tl, T) {
+    tl.from('.h', { opacity: 0, duration: 0.4 }, T(0, 0));
+    tl.from('#fm > *', { opacity: 0, x: -16, stagger: 0.45, duration: 0.4 }, T(0, 0.2));
+  } },
+
+s11_safety: {
+  html: `<div class="scene"><div class="chapter">Safe by design</div>${brand}
+    <div class="h" style="font-size:32px">Safe by design</div>
+    <div class="abs" id="sf" style="left:48px;top:210px;width:1184px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M4 4l16 16"/></svg></div><h3>No ads</h3><p>Ever. Children are not the product.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3>No selling data</h3><p>Data stays with the school and is used only to help the child learn.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8 15h8M4 4l16 16"/></svg></div><h3>No emotion detection</h3><p>Feelings are only ever self-reported.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>GDPR and EU AI Act</h3><p>Built in from day one, with Children First safeguarding.</p></div></div></div>`,
+  anim(tl, T) {
+    tl.from('.h', { opacity: 0, duration: 0.4 }, T(0, 0));
+    tl.from('#sf .card', { opacity: 0, y: 24, stagger: 1.1, duration: 0.5 }, T(0, 0.9));
+  } },
+
+s12_close: {
+  html: `<div class="scene" style="background:var(--forest)">
+    <div class="abs" id="cz-logo" style="left:0;right:0;top:150px;display:flex;justify-content:center;align-items:center;gap:20px"><img src="${A}logo-mark.svg" style="width:110px;height:110px"><img src="${A}wordmark-light.svg" style="height:80px"></div>
+    <div class="abs tagline" id="cz-t" style="left:0;right:0;top:310px;text-align:center;font-size:40px;color:#fff">Not another chatbot.<br>A whole team around every child.</div>
+    <div class="abs" id="cz-map" style="left:290px;top:500px;width:700px">
+      <div style="height:3px;background:rgba(255,255,255,.25);position:relative;top:15px"><div id="cz-line" style="height:3px;width:0;background:var(--saffron-soft)"></div></div>
+      <div style="display:flex;justify-content:space-between;position:relative">
+        ${['Ireland’s DEIS schools', 'United Kingdom', 'Europe'].map((x, i) => `<div class="cz-n" style="text-align:center;width:200px;${i === 0 ? 'margin-left:-85px' : i === 2 ? 'margin-right:-85px' : ''}"><div style="width:32px;height:32px;border-radius:50%;background:${i === 0 ? '#fff' : 'var(--saffron-soft)'};margin:0 auto 12px"></div><div style="color:#fff;font-weight:700;font-size:18px">${x}</div></div>`).join('')}
+      </div></div></div>`,
+  anim(tl, T) {
+    tl.from('#cz-logo', { opacity: 0, scale: 0.9, duration: 0.7 }, T(0, 0));
+    tl.from('#cz-t', { opacity: 0, y: 16, duration: 0.6 }, T(1, -0.1));
+    tl.from('.cz-n', { opacity: 0, y: 10, stagger: 0.9, duration: 0.4 }, T(2, 0.2));
+    tl.to('#cz-line', { width: '100%', duration: 2.4, ease: 'none' }, T(2, 0.3));
+  } },
+};
+
+let DUR = null, current = null;
+async function init() { DUR = await (await fetch('../out/vo/durations.json')).json(); return DUR.map(d => d.id); }
+function setup(id) {
+  const d = DUR.find(x => x.id === id), sc = SCENES[id];
+  stage.innerHTML = sc.html;
+  const tl = gsap.timeline({ paused: true });
+  const T = (i, dt = 0) => Math.max(0, LEAD + (d.sentences[i] || 0) + dt);
+  sc.anim(tl, T);
+  const total = LEAD + d.seconds + (id === 's12_close' ? 2.4 : TAIL);
+  tl.set({}, {}, total);
+  current = tl; tl.seek(0);
+  return total;
+}
+function seek(t) { current.seek(t, false); }
+window.V = { init, setup, seek };
+</script>
+</body>
+</html>

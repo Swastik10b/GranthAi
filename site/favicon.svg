@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GranthAI">
+  <rect width="64" height="64" rx="15" fill="#1f3a2e"/>
+  <!-- three palm leaves of a grantha manuscript -->
+  <rect x="9" y="19" width="46" height="8.5" rx="4.25" fill="#F4EBD6"/>
+  <rect x="9" y="30" width="46" height="8.5" rx="4.25" fill="#E9DDBF"/>
+  <rect x="9" y="41" width="46" height="8.5" rx="4.25" fill="#F4EBD6"/>
+  <!-- lines of writing -->
+  <g stroke="#8FA79A" stroke-width="1.6" stroke-linecap="round">
+    <path d="M27 23.3h20M27 34.3h14M27 45.3h18"/>
+  </g>
+  <!-- the thread that ties the leaves together, rising into a small network -->
+  <path d="M19 52V13.5" stroke="#D9913C" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <path d="M19 13.5 C 24 8, 31 8, 35 11.5 M35 11.5 L 44 8.5 M35 11.5 L 46 14.5" stroke="#D9913C" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <circle cx="19" cy="13.5" r="3" fill="#D9913C"/>
+  <circle cx="35" cy="11.5" r="2.4" fill="#F4EBD6"/>
+  <circle cx="44.5" cy="8.4" r="2" fill="#F4EBD6"/>
+  <circle cx="46.5" cy="14.6" r="2" fill="#F4EBD6"/>
+  <circle cx="19" cy="23.2" r="1.7" fill="#1f3a2e"/><circle cx="19" cy="34.2" r="1.7" fill="#1f3a2e"/><circle cx="19" cy="45.2" r="1.7" fill="#1f3a2e"/>
+</svg>
