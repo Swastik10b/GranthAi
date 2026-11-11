@@ -43,7 +43,7 @@ cd site && python3 -m http.server 8000     # then open http://localhost:8000
 
 ## The logo
 
-The mark is a grantha, a palm-leaf manuscript bound with a single thread. In Sanskrit, *grantha* means a book, from the root *granth*, "to tie together". The thread rises into a small network for the AI. The wordmark is set in Martel ExtraBold with a Devanagari-style headline (shirorekha) joining the lowercase letters. `tools/wordmark.py` rebuilds it as SVG paths.
+The mark is an open book from which a sapling grows, its leaves lined like pages, opening into a lotus bud: learning that grows until a child's talent blooms. In Sanskrit, *grantha* means a book, from the root *granth*, "to tie together". The wordmark is set in Martel ExtraBold with a Devanagari-style headline (shirorekha) joining the lowercase letters. `tools/wordmark.py` rebuilds it as SVG paths.
 
 ## The demo video
 
