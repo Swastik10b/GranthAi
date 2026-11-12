@@ -350,9 +350,9 @@ blockquote.voice footer { background: none; color: var(--muted); padding: 0; tex
 
 /* ---------------- TEAM ---------------- */
 .team { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
-.person { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); display: grid; grid-template-columns: 220px 1fr; }
-.person img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; min-height: 300px; }
-.person .body { padding: 24px 26px; }
+.person { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); display: grid; grid-template-columns: 190px 1fr; gap: 22px; padding: 24px; align-items: start; }
+.person img { width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: cover; object-position: center top; display: block; border-radius: 12px; border: 1px solid var(--line); }
+.person .body { padding: 0; }
 .person h3 { font-size: 22px; margin-bottom: 2px; }
 .person .role { font-size: 14px; font-weight: 600; color: var(--saffron); margin-bottom: 12px; }
 .person p { font-size: 15px; color: var(--muted); }
@@ -420,7 +420,7 @@ footer.site a { color: #cfd8d2; text-decoration: none; margin-left: 18px; }
     .research-grid { grid-template-columns: 1fr; }
     .eu-grid { grid-template-columns: 1fr; }
     #pilot .grid { grid-template-columns: 1fr !important; }
-    .person img { height: 340px; min-height: 0; object-position: top; }
+    .person img { width: 200px; }
     .screen { height: 640px; }
     .hbar { grid-template-columns: 1fr 90px 22px; font-size: 13.5px; }
     .global-statement { font-size: 21px; }
@@ -440,3 +440,16 @@ footer.site a { color: #cfd8d2; text-decoration: none; margin-left: 18px; }
 .vision-quote cite { font-style: normal; font-weight: 600; }
 
 footer.site .logo .mark { height: 44px; background: #F6F7F5; border-radius: 8px; padding: 4px 8px; }
+
+/* ---------------- ABOUT: visual cards and algorithm cards ---------------- */
+.card.vis .viz { background: var(--alt); border-radius: 12px; padding: 14px 12px; margin-bottom: 18px; }
+.card.vis .viz svg { display: block; width: 100%; height: auto; font-family: "Inter", system-ui, sans-serif; }
+.card.vis p { font-size: 15.5px; }
+.algo-head { margin-top: 64px; }
+.grid.algos { margin-top: 24px; }
+.algo { background: var(--leaf); border-top: 5px solid var(--forest); border-radius: 16px; padding: 24px 24px 26px; }
+.algo .n { display: block; font-family: var(--serif); font-weight: 700; font-size: 46px; line-height: 1; color: var(--forest); margin-bottom: 14px; }
+.algo h3 { font-size: 19px; line-height: 1.3; margin-bottom: 6px; }
+.algo .metric { font-size: 14.5px; font-weight: 700; color: #9A5A16; margin-bottom: 10px; }
+.algo p { font-size: 15px; color: var(--text); }
+.algo-note { margin-top: 18px; font-size: 14px !important; color: var(--faint) !important; }
