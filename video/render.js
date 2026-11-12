@@ -5,7 +5,7 @@
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const fs = require('fs');
-const FPS = 30, BASE = 'http://localhost:8766/video/video.html';
+const FPS = 30, BASE = 'http://localhost:8766/video/video.html' + (process.env.VO ? '?vo=' + process.env.VO : '');
 
 async function page(browser) {
   const p = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1.5 });

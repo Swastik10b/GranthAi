@@ -21,11 +21,11 @@ for name in ("us_silver.json", "us_gold.json"):      # gold wins
 SR = 24000
 
 OVERRIDES = {
-    "granthai": "ɡɹˈʌnθ ˌAˈI", "granth": "ɡɹˈʌnθ", "aoife": "ˈifə", "deis": "dˈɛʃ",
+    "granthai": "ɡɹˈʌnθ ˌAˈI", "indra": "ˈɪndɹə", "ucd": "jˌu sˌi dˈi", "maths": "mˈæθs", "granth": "ɡɹˈʌnθ", "aoife": "ˈifə", "deis": "dˈɛʃ",
     "cao": "sˌi ˌA ˈO", "gdpr": "ʤˌi dˌi pˌi ˈɑɹ", "eu": "ˌi ˈju", "ai": "ˌA ˈI",
-    "cert": "sˈɜɹt", "a": "ɐ", "sanskrit": "sˈænskɹɪt", "bayesian": "bˈAʒən",
+    "cert": "sˈɜɹt", "a": "ɐ", "sanskrit": "sˈænskɹɪt", "bayesian": "bˈAziən",
     "what's": "wˈʌts", "it's": "ɪts", "that's": "ðˈæts", "here's": "hˈɪɹz",
-    "she'll": "ʃil", "can't": "kˈænt", "uk": "jˌu ˈA", "irish": "ˈIɹɪʃ",
+    "she'll": "ʃil", "can't": "kˈænt", "uk": "jˌu kˈA", "irish": "ˈIɹɪʃ",
     "chatbot": "ʧˈætbɑt", "chatbots": "ʧˈætbɑts", "ireland's": "ˈIɹlən dz".replace(" ", ""),
     "pupils": "pjˈupᵊlz", "mini": "mˈɪni", "hear": "hˈɪɹ", "mentor": "mˈɛntɔɹ",
     "ten-minute": "tˈɛn mˈɪnɪt", "activities": "æktˈɪvɪTiz", "copies": "kˈɑpiz",

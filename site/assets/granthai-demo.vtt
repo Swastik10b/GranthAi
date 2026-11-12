@@ -1,138 +1,162 @@
 WEBVTT
 
 1
-00:00:00.450 --> 00:00:04.653
+00:00:00.450 --> 00:00:04.780
 Every child has a spark, but not every child gets the chance to show it.
 
 2
-00:00:04.703 --> 00:00:06.200
+00:00:04.830 --> 00:00:06.610
 This is GranthAI.
 
 3
-00:00:06.250 --> 00:00:10.444
+00:00:06.660 --> 00:00:11.070
 In Sanskrit, granth means a book, and its root means to tie together.
 
 4
-00:00:10.494 --> 00:00:15.428
-That's what we do: we tie learning, people and opportunity together, around every child.
+00:00:11.120 --> 00:00:15.407
+We tie learning, people and opportunity together, around every child.
 
 5
-00:00:16.783 --> 00:00:24.735
-In Ireland, only fifty-four percent of children in care complete the Leaving Cert, against eighty-seven percent of all children.
+00:00:16.750 --> 00:00:23.480
+Across the world, talented children fall behind, not for lack of ability, but for lack of support.
 
 6
-00:00:24.785 --> 00:00:31.555
-Teachers in DEIS schools do remarkable work, but one teacher can't sit beside twenty-five children every evening.
+00:00:23.530 --> 00:00:28.740
+In Ireland, only fifty-four percent of children in care complete the Leaving Cert.
 
 7
-00:00:32.917 --> 00:00:34.467
-It starts with a profile.
+00:00:28.790 --> 00:00:32.724
+And one teacher cannot sit beside twenty-five children every evening.
 
 8
-00:00:34.517 --> 00:00:35.694
-Aoife is nine.
+00:00:34.083 --> 00:00:35.733
+It starts with a profile.
 
 9
-00:00:35.744 --> 00:00:38.916
-She picks what she loves: football, space and drawing.
+00:00:35.783 --> 00:00:37.093
+Aoife is nine.
 
 10
-00:00:38.966 --> 00:00:44.746
-She chooses her language, her teacher confirms consent, and GranthAI starts learning how she learns.
+00:00:37.143 --> 00:00:40.873
+She picks what she loves: football, space and drawing.
 
 11
-00:00:46.083 --> 00:00:47.373
-Here's the difference.
+00:00:40.923 --> 00:00:46.059
+From her first answers, a Bayesian model starts tracking what she knows, and what to review next.
 
 12
-00:00:47.423 --> 00:00:51.258
-Aoife asks a general chatbot: what's three quarters plus a half?
+00:00:47.417 --> 00:00:48.717
+Here's the difference.
 
 13
-00:00:51.308 --> 00:00:52.952
-It hands her the full answer.
+00:00:48.767 --> 00:00:52.717
+Aoife asks a general chatbot: what's three quarters plus a half?
 
 14
-00:00:53.002 --> 00:00:55.085
-She copies it, and learns nothing.
+00:00:52.767 --> 00:00:55.287
+It hands her the answer, and she copies it.
 
 15
-00:00:55.135 --> 00:00:58.656
-In GranthAI, she tries first, and answers four sixths.
+00:00:55.337 --> 00:00:58.097
+GranthAI asks her to try first.
 
 16
-00:00:58.706 --> 00:01:03.290
-GranthAI spots the exact mistake: she added the tops and the bottoms.
+00:00:58.147 --> 00:01:05.269
+When she answers four sixths, it spots the exact mistake, draws the pieces, and lets her find five quarters herself.
 
 17
-00:01:03.340 --> 00:01:08.232
-So it shows her a picture, gives one hint at a time, and she finds five quarters herself.
+00:01:06.617 --> 00:01:08.887
+It works for every kind of question.
 
 18
-00:01:09.583 --> 00:01:15.813
-Behind every reply, a Bayesian model tracks what she has mastered, what she's forgetting, and what to review next.
+00:01:08.937 --> 00:01:17.347
+Ask it to write your science homework, and it opens your teacher's class notes and a diagram of a leaf, then asks what the plant needs from the sun.
 
 19
-00:01:17.150 --> 00:01:24.755
-To keep her motivated, her feed follows her interests: why a football curves, a rocket to build this weekend, a book she'll love.
+00:01:17.397 --> 00:01:23.947
+Ask it to help you revise, and it builds a quick quiz on your weakest topics, and suggests a book you'll love.
 
 20
-00:01:24.805 --> 00:01:31.055
-Gentle check-ins let her share how she feels, and if something is wrong, GranthAI never keeps secrets.
+00:01:23.997 --> 00:01:25.887
+It never hands out answers.
 
 21
-00:01:31.105 --> 00:01:33.313
-It connects her with a trusted adult at school.
+00:01:25.937 --> 00:01:27.382
+It helps children reach them.
 
 22
-00:01:34.650 --> 00:01:35.904
-Then it gets bigger.
+00:01:28.717 --> 00:01:31.877
+Her feed follows her interests, to keep her curious.
 
 23
-00:01:35.954 --> 00:01:41.892
-Our ranking and clustering algorithms find children with the same passions across different schools.
+00:01:31.927 --> 00:01:38.677
+Gentle check-ins let her share how she feels, and if something is wrong, GranthAI never keeps secrets.
 
 24
-00:01:41.942 --> 00:01:47.445
-Aoife and three pupils from two other DEIS schools form a space club, and build a project together.
+00:01:38.727 --> 00:01:40.606
+It connects her with a trusted adult.
 
 25
-00:01:48.783 --> 00:01:55.399
-Each group is matched with a vetted retired teacher as a mentor, by subject, availability and language.
+00:01:41.950 --> 00:01:43.750
+Now picture four schools.
 
 26
-00:01:55.449 --> 00:02:00.042
-Children gain role models, and retired teachers gain meaningful, paid work.
+00:01:43.800 --> 00:01:45.650
+Each child is a node.
 
 27
-00:02:01.383 --> 00:02:03.085
-Teachers get their time back.
+00:01:45.700 --> 00:01:56.400
+Our ranking algorithms link children who share the same passions, across school walls, and the network settles into clusters: a space club, a coding crew, an art studio.
 
 28
-00:02:03.135 --> 00:02:10.993
-The class dashboard shows which misconceptions are spreading, suggests a ten-minute mini lesson, and flags who might need a quiet word.
+00:01:56.450 --> 00:02:00.113
+Aoife joins pupils from two other schools to build a project together.
 
 29
-00:02:11.043 --> 00:02:17.214
-It even helps plan outdoor activities, because principals told us their pupils need safe places to play.
+00:02:01.450 --> 00:02:07.930
+Each club is matched with a vetted retired teacher as a mentor, by subject, language and time.
 
 30
-00:02:18.550 --> 00:02:23.431
-Future Me turns interests into real routes, from CAO courses to apprenticeships.
+00:02:07.980 --> 00:02:12.175
+Children gain role models, and retired teachers gain meaningful work.
 
 31
-00:02:24.783 --> 00:02:32.637
-And it's safe by design: no ads, no selling data, no emotion detection, and built for GDPR and the EU AI Act.
+00:02:13.517 --> 00:02:15.477
+Teachers get their time back.
 
 32
-00:02:33.983 --> 00:02:35.134
-GranthAI.
+00:02:15.527 --> 00:02:27.877
+GranthAI shows which topics the class understands and where they struggle, then helps plan the lesson: objectives, a hands-on activity, and a quick check, built from the curriculum and the teacher's own materials.
 
 33
-00:02:35.184 --> 00:02:38.691
-Not another chatbot, but a whole team around every child.
+00:02:29.217 --> 00:02:34.086
+Future Me turns interests into real routes, from college courses to apprenticeships.
 
 34
-00:02:38.741 --> 00:02:42.637
-Starting in Ireland's DEIS schools, and growing across the UK and Europe.
+00:02:35.450 --> 00:02:43.290
+And it's safe by design: no ads, no selling data, no emotion detection, built for GDPR and the EU AI Act.
+
+35
+00:02:44.650 --> 00:02:47.150
+We are starting in Ireland's DEIS schools.
+
+36
+00:02:47.200 --> 00:02:48.780
+Next, the UK.
+
+37
+00:02:48.830 --> 00:02:52.680
+Then Europe, where millions of children learn in a second language.
+
+38
+00:02:52.730 --> 00:02:56.850
+And one day, every community where one tablet serves a whole class.
+
+39
+00:02:56.900 --> 00:02:58.100
+GranthAI.
+
+40
+00:02:58.150 --> 00:03:01.362
+Not another chatbot, but a whole team around every child.
 

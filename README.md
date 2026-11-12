@@ -47,10 +47,10 @@ The mark is an open book from which a sapling grows, its leaves lined like pages
 
 ## The demo video
 
-The narration is generated offline with Kokoro-82M (Apache-2.0) and the `af_heart` voice. To rebuild:
+The narration is generated offline with Kokoro-82M (Apache-2.0) and the `af_heart` voice, reading each scene as one passage at a slightly slower pace so it sounds natural. To rebuild:
 
 ```bash
-python3 tools/tts.py video/narration.json out/vo af_heart   # narration and timings
+python3 tools/tts_v2.py video/narration.json out/vo 0.95     # narration, read as whole passages
 python3 -m http.server 8766 &                                # serve the repo root
 node video/render.js scenes                                  # one MP4 per scene
 python3 tools/assemble.py                                    # join scenes, add narration and captions
