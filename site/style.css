@@ -433,3 +433,8 @@ footer.site a { color: #cfd8d2; text-decoration: none; margin-left: 18px; }
     .screen { border-radius: 22px; }
 }
 .name-card p .deva { font-size: 1.1em; color: var(--forest); line-height: 1; }
+
+.vision-quote { margin: 0 0 22px; padding: 4px 0 4px 20px; border-left: 4px solid var(--saffron); }
+.vision-quote p { font-family: var(--serif); font-weight: 700; font-size: 24px !important; line-height: 1.4; color: var(--ink) !important; }
+.vision-quote footer { background: none; color: var(--muted); padding: 0; margin-top: 8px; text-align: left; font-size: 15px; }
+.vision-quote cite { font-style: normal; font-weight: 600; }
