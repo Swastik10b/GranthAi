@@ -58,7 +58,7 @@ a { color: var(--forest-2); }
     position: sticky; top: 0; border-bottom: 1px solid var(--line); z-index: 1000;
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo .mark { height: 40px; width: 40px; }
+.logo .mark { height: 46px; width: auto; }
 .logo .word { height: 27px; width: auto; }
 .navbar nav a {
     margin-left: 26px; text-decoration: none; color: #374151; font-weight: 500; font-size: 15px;
@@ -74,7 +74,7 @@ a { color: var(--forest-2); }
 .hero { background: var(--sage); padding: 110px 80px 100px; position: relative; overflow: hidden; }
 .hero::after {
     content: ""; position: absolute; right: -60px; bottom: -80px; width: 460px; height: 460px;
-    background: url("assets/logo-mark.svg") no-repeat center / contain; opacity: 0.09; pointer-events: none;
+    background: url("assets/logo-mark.png") no-repeat center / contain; opacity: 0.09; pointer-events: none;
 }
 .hero-inner { max-width: 1000px; position: relative; z-index: 1; }
 .quote { margin: 0 0 44px; max-width: 860px; }
@@ -438,3 +438,5 @@ footer.site a { color: #cfd8d2; text-decoration: none; margin-left: 18px; }
 .vision-quote p { font-family: var(--serif); font-weight: 700; font-size: 24px !important; line-height: 1.4; color: var(--ink) !important; }
 .vision-quote footer { background: none; color: var(--muted); padding: 0; margin-top: 8px; text-align: left; font-size: 15px; }
 .vision-quote cite { font-style: normal; font-weight: 600; }
+
+footer.site .logo .mark { height: 44px; background: #F6F7F5; border-radius: 8px; padding: 4px 8px; }
