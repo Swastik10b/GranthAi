@@ -6,7 +6,7 @@ import json, re, subprocess, os
 import numpy as np
 from scipy.io import wavfile
 
-FPS, LEAD, TAIL, LAST_TAIL, SR = 30, 0.45, 0.85, 2.4, 24000
+FPS, LEAD, TAIL, LAST_TAIL, SR = 30, 0.45, 0.7, 2.4, 24000
 dur = json.load(open("out/vo/durations.json"))
 script = {s["id"]: s["text"] for s in json.load(open("video/narration.json"))}
 
@@ -42,7 +42,13 @@ with open("out/scenes/list.txt", "w") as f:
         f.write(f"file '{os.path.abspath('out/scenes/' + d['id'] + '.mp4')}'\n")
 run = lambda *a: subprocess.run(a, check=True)
 run("ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", "out/scenes/list.txt", "-c", "copy", "out/video_silent.mp4")
-run("ffmpeg", "-y", "-loglevel", "error", "-i", "out/video_silent.mp4", "-i", "out/narration.wav",
-    "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", "loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000",
-    "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-shortest", "out/granthai-demo.mp4")
+run("python3", "-I", "tools/music.py", str(round(t0 + 0.5, 2)), "out/music.wav")
+# music sits well under the voice and ducks further whenever the narrator speaks
+fc = ("[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,asplit=2[v1][v2];"
+      "[2:a]aresample=48000,volume=0.20[m];"
+      "[m][v1]sidechaincompress=threshold=0.02:ratio=5:attack=30:release=600:makeup=1[md];"
+      "[v2][md]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000[a]")
+run("ffmpeg", "-y", "-loglevel", "error", "-i", "out/video_silent.mp4", "-i", "out/narration.wav", "-i", "out/music.wav",
+    "-filter_complex", fc, "-map", "0:v", "-map", "[a]", "-c:v", "copy",
+    "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", "-shortest", "out/granthai-demo.mp4")
 print("video seconds:", round(t0, 2), "cues:", len(cues))

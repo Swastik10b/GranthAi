@@ -30,7 +30,7 @@ def silences(a, min_len=0.12, thr=0.012):
 
 def main(script, out_dir, speed=0.95):
     speed = float(speed); os.makedirs(out_dir, exist_ok=True)
-    tts = TTS("af_heart"); meta = []
+    tts = TTS(os.environ.get("VOICE", "af_heart")); meta = []
     for sc in json.load(open(script)):
         sents = re.split(r"(?<=[.!?])\s+", sc["text"].strip())
         # chunks of whole sentences that fit the model's 510-token window

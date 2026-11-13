@@ -7,7 +7,7 @@ This repository holds:
 | Folder | What it is |
 |---|---|
 | `site/` | The website: a static site with no build step. This is the folder Cloudflare Pages serves. |
-| `video/` | The source for the demo video (`site/assets/granthai-demo-v3.mp4`): the narration script, the animated scenes and the render script. |
+| `video/` | The source for the demo video (`site/assets/granthai-demo-v4.mp4`): the narration script, the animated scenes and the render script. |
 | `tools/` | Helper scripts used to build the logo, the narration and the final video. |
 
 ## Deploy the website to Cloudflare Pages

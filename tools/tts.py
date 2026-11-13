@@ -78,7 +78,11 @@ def g2p(text):
 class TTS:
     def __init__(self, voice="af_heart"):
         self.sess = rt.InferenceSession(MODEL, providers=["CPUExecutionProvider"])
-        self.voice = np.load(VOICES)[voice]
+        vs = np.load(VOICES)
+        # "af_heart" or a blend such as "af_heart:0.75,af_bella:0.25"
+        parts = [(v.split(':')[0], float(v.split(':')[1]) if ':' in v else 1.0) for v in voice.split(',')]
+        tot = sum(w for _, w in parts)
+        self.voice = sum(vs[n] * (w / tot) for n, w in parts)
 
     def say(self, phonemes, speed=1.0):
         ids = [VOCAB[c] for c in phonemes if c in VOCAB]

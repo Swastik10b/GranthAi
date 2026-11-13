@@ -81,9 +81,9 @@
     const c = size / 2, r = size / 2 - 34, n = vals.length;
     const pt = (i, k) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; return [c + Math.cos(a) * r * k, c + Math.sin(a) * r * k]; };
     let g = '';
-    [0.33, 0.66, 1].forEach(k => { g += `<polygon points="${vals.map((_, i) => pt(i, k).join(',')).join(' ')}" fill="none" stroke="#e1e7e3"/>`; });
-    vals.forEach((_, i) => { const [x, y] = pt(i, 1); g += `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="#e1e7e3"/>`; });
-    g += `<polygon points="${vals.map((v, i) => pt(i, Math.max(0.06, v)).join(',')).join(' ')}" fill="rgba(192,120,42,0.22)" stroke="#c0782a" stroke-width="2"/>`;
+    [0.33, 0.66, 1].forEach(k => { g += `<polygon points="${vals.map((_, i) => pt(i, k).join(',')).join(' ')}" fill="none" stroke="#E3E5EF"/>`; });
+    vals.forEach((_, i) => { const [x, y] = pt(i, 1); g += `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="#E3E5EF"/>`; });
+    g += `<polygon points="${vals.map((v, i) => pt(i, Math.max(0.06, v)).join(',')).join(' ')}" fill="rgba(192,120,42,0.22)" stroke="#8E3B4C" stroke-width="2"/>`;
     vals.forEach((_, i) => { const [x, y] = pt(i, 1.24); g += `<text x="${x}" y="${y + 4}" text-anchor="middle" font-size="11" fill="#4b5563" font-family="Inter, sans-serif">${DIMS[i]}</text>`; });
     return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="Interest profile">${g}</svg>`;
   }
@@ -91,8 +91,8 @@
     const h = 26, gap = 30; let g = '';
     rows.forEach((f, r) => {
       const y = r * gap + 4, seg = w / f.d;
-      for (let i = 0; i < f.d; i++) g += `<rect x="${i * seg + 1}" y="${y}" width="${seg - 2}" height="${h - 6}" rx="3" fill="${i < f.n ? (f.c || '#6C8577') : '#eef1ee'}"/>`;
-      g += `<text x="${w + 8}" y="${y + 15}" font-size="12.5" font-weight="700" fill="#1f2b24" font-family="Inter, sans-serif">${f.label || f.n + '/' + f.d}</text>`;
+      for (let i = 0; i < f.d; i++) g += `<rect x="${i * seg + 1}" y="${y}" width="${seg - 2}" height="${h - 6}" rx="3" fill="${i < f.n ? (f.c || '#7C8BB8') : '#F1F2F7'}"/>`;
+      g += `<text x="${w + 8}" y="${y + 15}" font-size="12.5" font-weight="700" fill="#23304A" font-family="Inter, sans-serif">${f.label || f.n + '/' + f.d}</text>`;
     });
     return `<svg viewBox="0 0 ${w + 100} ${rows.length * gap + 4}" width="${w + 100}" height="${rows.length * gap + 4}" role="img" aria-label="Fraction bars">${g}</svg>`;
   }
@@ -188,9 +188,9 @@
   }
   function equivBars() {
     const { n1, d1, n2, d2 } = S.prob, L = lcm(d1, d2);
-    const rows = [{ n: n1, d: d1 }, { n: n2, d: d2, c: '#c0782a' }];
+    const rows = [{ n: n1, d: d1 }, { n: n2, d: d2, c: '#8E3B4C' }];
     if (d1 !== L) rows.push({ n: n1 * L / d1, d: L, label: `${n1}/${d1} = ${n1 * L / d1}/${L}` });
-    if (d2 !== L) rows.push({ n: n2 * L / d2, d: L, c: '#c0782a', label: `${n2}/${d2} = ${n2 * L / d2}/${L}` });
+    if (d2 !== L) rows.push({ n: n2 * L / d2, d: L, c: '#8E3B4C', label: `${n2}/${d2} = ${n2 * L / d2}/${L}` });
     return fracBars(rows);
   }
   function tutorReply(text) {
@@ -244,7 +244,7 @@
                                           : [`What is ${pq()}? Just tell me the answer`]).map(q => `<button class="chip">${esc(q)}</button>`).join('')}</div>
       <form class="composer" id="composer"><input class="field" id="msg" placeholder="${isG ? 'Type your answer…' : 'Message the chatbot…'}" autocomplete="off" aria-label="Message"><button class="small-btn">Send</button></form>
       ${isG ? `<div class="panel mastery"><div class="kv"><span>Adding fractions with different denominators</span><b>${pct(S.pL)}</b></div><div class="bar saff"><i style="width:${pct(S.pL)}"></i></div><div class="meta" style="margin-top:6px">Mastery estimate from Bayesian knowledge tracing. Updates after every answer.</div></div>`
-            : `<div class="panel mastery" style="background:#fff7ed"><b style="font-size:13.5px">Same question, different outcome.</b><div class="meta" style="margin-top:4px">The chatbot gives the full answer straight away. The child can copy it, and no one learns what they misunderstood. Switch back to GranthAI to compare.</div></div>`}`;
+            : `<div class="panel mastery" style="background:#FBF2F4"><b style="font-size:13.5px">Same question, different outcome.</b><div class="meta" style="margin-top:4px">The chatbot gives the full answer straight away. The child can copy it, and no one learns what they misunderstood. Switch back to GranthAI to compare.</div></div>`}`;
     const chat = $('#chat'); body.scrollTop = 0; chat.lastElementChild && chat.lastElementChild.scrollIntoView({ block: 'nearest' });
     $$('.seg button').forEach(b => b.addEventListener('click', () => { S.mode = b.dataset.m; screenLearn(); }));
     const send = text => {
@@ -298,9 +298,9 @@
     const items = rankFeed();
     body.innerHTML = `
       <div class="panel" style="background:var(--forest);color:#fff">
-        <div class="kv" style="color:#d5e1d8"><span>Weekly quest: master 3 skills to unlock the <b style="color:#fff">Space Club badge</b></span><b style="color:#fff">2/3</b></div>
+        <div class="kv" style="color:#DDE1EE"><span>Weekly quest: master 3 skills to unlock the <b style="color:#fff">Space Club badge</b></span><b style="color:#fff">2/3</b></div>
         <div class="bar"><i style="width:66%;background:var(--saffron-soft)"></i></div>
-        <div class="meta" style="color:#c4d3c9;margin-top:6px">${S.streak}-day streak · effort earns XP, not just right answers</div>
+        <div class="meta" style="color:#C9CEE2;margin-top:6px">${S.streak}-day streak · effort earns XP, not just right answers</div>
       </div>
       ${items.map(it => `<div class="panel feed-item"><div class="thumb">${it.e}</div><div><span class="type">${it.type}</span><h4>${esc(it.t)}</h4>
         <span class="why">${whyText(it)}</span></div></div>`).join('')}`;
@@ -333,14 +333,14 @@
     $('#ci-form').addEventListener('submit', e => {
       e.preventDefault(); const t = $('#ci-text').value.trim(); if (!t) return;
       $('#ci-reply').innerHTML = CONCERN.test(t)
-        ? `<div class="msg bot" style="max-width:100%;margin-top:10px;border-color:#f3c98b"><span class="tag">Safety protocol</span>Thank you for telling me. That was brave, and it matters. I can’t keep this a secret, because keeping you safe comes first. I’m letting Ms Byrne, your school’s designated liaison person, know so a trusted adult can help. If you are in danger right now, call <b>112</b> or <b>999</b>. You can talk to Childline any time, free, on <b>1800 66 66 66</b>.</div>`
+        ? `<div class="msg bot" style="max-width:100%;margin-top:10px;border-color:#E4AAB7"><span class="tag">Safety protocol</span>Thank you for telling me. That was brave, and it matters. I can’t keep this a secret, because keeping you safe comes first. I’m letting Ms Byrne, your school’s designated liaison person, know so a trusted adult can help. If you are in danger right now, call <b>112</b> or <b>999</b>. You can talk to Childline any time, free, on <b>1800 66 66 66</b>.</div>`
         : `<div class="msg bot" style="max-width:100%;margin-top:10px"><span class="tag">GranthAI</span>Thanks for sharing that with me. If you ever want to talk to a grown-up about it, just ask and I’ll let your teacher know.</div>`;
       $('#ci-text').value = '';
     });
   }
 
   // ---------- SCREEN: clusters ----------
-  const SCHOOLS = [['School A', '#c0782a'], ['School B', '#2f5e46'], ['School C', '#6d8fb3'], ['School D', '#9b6bb0']];
+  const SCHOOLS = [['School A', '#8E3B4C'], ['School B', '#34446B'], ['School C', '#6d8fb3'], ['School D', '#9b6bb0']];
   const PEERS = ['Zofia', 'Tomás', 'Amara', 'Cian', 'Oisín', 'Lena', 'Darragh', 'Yusuf', 'Niamh', 'Mateus', 'Saoirse', 'Kacper', 'Ella', 'Ronan', 'Ifeoma', 'Liam', 'Ana', 'Fionn', 'Maya', 'Seán', 'Olena', 'Jack', 'Róisín'];
   const ARCH = [['space', 'science', 'football'], ['football', 'dance', 'music'], ['drawing', 'stories', 'music'], ['building', 'coding', 'science']];
   function buildKids() {
@@ -406,8 +406,8 @@
         <svg class="cluster-svg" viewBox="0 0 360 300" id="csvg" role="img" aria-label="Children from four schools grouped by interests">
           <g id="hulls"></g>
           ${data.kids.map((k, i) => `<g class="kid" data-i="${i}" style="transform:translate(${k.x0}px,${k.y0}px);transition:transform 1.1s cubic-bezier(.2,.8,.2,1) ${i * 18}ms">
-              <circle r="${k.me ? 8 : 6}" fill="${SCHOOLS[k.school][1]}" stroke="${k.me ? '#0f1a14' : '#fff'}" stroke-width="2"></circle>
-              ${k.me ? `<text y="-13" text-anchor="middle" font-size="11" font-weight="700" fill="#0f1a14" stroke="#fff" stroke-width="3" paint-order="stroke" font-family="Inter,sans-serif">${esc(k.name)}</text>` : ''}</g>`).join('')}
+              <circle r="${k.me ? 8 : 6}" fill="${SCHOOLS[k.school][1]}" stroke="${k.me ? '#141B2D' : '#fff'}" stroke-width="2"></circle>
+              ${k.me ? `<text y="-13" text-anchor="middle" font-size="11" font-weight="700" fill="#141B2D" stroke="#fff" stroke-width="3" paint-order="stroke" font-family="Inter,sans-serif">${esc(k.name)}</text>` : ''}</g>`).join('')}
         </svg>
         <div class="legend">${SCHOOLS.map(([n, c]) => `<span><i style="background:${c}"></i>${n}</span>`).join('')}</div>
         <button class="small-btn" id="run" style="margin-top:12px;width:100%">${done ? 'Groups found ✓' : 'Find my groups'}</button>
@@ -416,7 +416,7 @@
     const place = () => {
       $$('.kid').forEach(g => { const k = data.kids[+g.dataset.i]; g.style.transform = `translate(${k.x1}px,${k.y1}px)`; });
       const centres = [[95, 85], [265, 85], [95, 215], [265, 215]];
-      $('#hulls').innerHTML = data.groups.map(g => `<circle cx="${centres[g.j][0]}" cy="${centres[g.j][1]}" r="56" fill="${g.j === data.mine.j ? 'rgba(192,120,42,0.10)' : 'rgba(108,133,119,0.08)'}" stroke="${g.j === data.mine.j ? '#c0782a' : '#cfd8d2'}" stroke-dasharray="4 4"/>
+      $('#hulls').innerHTML = data.groups.map(g => `<circle cx="${centres[g.j][0]}" cy="${centres[g.j][1]}" r="56" fill="${g.j === data.mine.j ? 'rgba(192,120,42,0.10)' : 'rgba(108,133,119,0.08)'}" stroke="${g.j === data.mine.j ? '#8E3B4C' : '#D6DAEA'}" stroke-dasharray="4 4"/>
         <text x="${centres[g.j][0]}" y="${centres[g.j][1] + (g.j < 2 ? -62 : 72)}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#4b5563" font-family="Inter,sans-serif">${esc(g.name)}</text>`).join('');
       const c = data.club;
       $('#club').innerHTML = `<div class="group-card"><span class="type">Your club</span><h4>${esc(LABEL[data.mine.top[0]])} Club · ${new Set(c.map(k => k.school)).size} schools</h4>
@@ -464,7 +464,7 @@
     body.innerHTML = `
       <div class="panel"><h4>Class mastery this week</h4>
         <table class="heat"><thead><tr><th>Skill</th><th>Mastered</th><th>Practising</th><th>Stuck</th></tr></thead>
-        <tbody>${skills.map(([s, a, b, c]) => `<tr><th>${s}</th><td style="background:${shade(a, 24)};color:${a > 12 ? '#fff' : 'inherit'}">${a}</td><td style="background:${shade(b, 24)}">${b}</td><td style="background:${c > 5 ? '#fbe3c6' : shade(c, 24)}">${c}</td></tr>`).join('')}</tbody></table></div>
+        <tbody>${skills.map(([s, a, b, c]) => `<tr><th>${s}</th><td style="background:${shade(a, 24)};color:${a > 12 ? '#fff' : 'inherit'}">${a}</td><td style="background:${shade(b, 24)}">${b}</td><td style="background:${c > 5 ? '#F3D6DD' : shade(c, 24)}">${c}</td></tr>`).join('')}</tbody></table></div>
       <div class="panel"><span class="type">Spreading misconception</span><h4>7 pupils add the tops and the bottoms (3/4 + 1/2 = 4/6)</h4>
         <button class="small-btn" id="lesson">${S.lesson ? 'Mini-lesson ready ✓' : 'Plan a 10-minute mini-lesson'}</button><div id="lesson-plan"></div></div>
       <div class="panel"><h4>Needs your attention</h4>

@@ -56,4 +56,47 @@
   }
   bars(document.getElementById('chart-challenges'), SURVEY.challenges, 2);
   bars(document.getElementById('chart-devices'), SURVEY.devices, 2);
+  // Plans and pricing by region (indicative, to be tested in pilots).
+  const PLANS = {
+    ie: {
+      plans: [
+        { who: 'Schools', name: 'School licence', price: '€2,000–3,500', per: 'per school / year', items: ['Every pupil, unlimited sessions', 'Teacher Insight Studio and curriculum upload', 'Pricing scales with school size'], featured: true },
+        { who: 'Sponsors and NGOs', name: 'Sponsored school', price: '€2,000–3,500', per: 'per school / year', items: ['Funds a school that cannot pay', 'The school pays nothing', 'Impact report for the sponsor'] },
+        { who: 'Care providers', name: 'Care and youth services', price: '€200', per: 'per child / year', items: ['Learning that follows the child', 'Continuity across placements', 'Supervised mentor sessions'] },
+        { who: 'Families', name: 'Family plan', price: '€8', per: 'per month', items: ['Home access and Voice Tutor', 'Free for children in sponsored schools', 'Cancel any time'] },
+      ],
+      funding: 'In Ireland, schools can fund GranthAI from their own budgets, such as DEIS and ICT funding, or a partner can sponsor the whole school.',
+    },
+    uk: {
+      plans: [
+        { who: 'Schools', name: 'School licence', price: '£1,800–3,000', per: 'per school / year', items: ['Every pupil, unlimited sessions', 'Curriculum packs for each UK nation', 'Pricing scales with school size'], featured: true },
+        { who: 'Trusts', name: 'Multi-academy trust', price: 'Custom', per: 'per trust / year', items: ['Clubs across the trust’s schools', 'Trust-wide insight dashboard', 'Volume pricing'] },
+        { who: 'Care providers', name: 'Care and youth services', price: '£175', per: 'per child / year', items: ['For looked-after children', 'Continuity across placements', 'Supervised mentor sessions'] },
+        { who: 'Families', name: 'Family plan', price: '£7', per: 'per month', items: ['Home access and Voice Tutor', 'Free for children in sponsored schools', 'Cancel any time'] },
+      ],
+      funding: 'In England, Pupil Premium pays schools £1,550 for each eligible primary pupil and £2,690 for each looked-after child in 2026–27, so one licence costs a fraction of one school’s allocation.',
+    },
+    eu: {
+      plans: [
+        { who: 'Schools', name: 'School licence', price: '€1,500–3,000', per: 'per school / year', items: ['Every pupil, in their home language', 'National curriculum mapping', 'Priced to each country’s budgets'], featured: true },
+        { who: 'Regions and ministries', name: 'Regional licence', price: 'Custom', per: 'per region / year', items: ['All schools in a region or programme', 'GDPR and EU AI Act documentation', 'EU data hosting'] },
+        { who: 'NGOs', name: 'NGO and care partners', price: '€150–200', per: 'per child / year', items: ['Refugee and newly arrived pupils', 'Cross-border clubs', 'Supervised mentor sessions'] },
+        { who: 'Families', name: 'Family plan', price: '€5–8', per: 'per month', items: ['Home access and Voice Tutor', 'Priced to local purchasing power', 'Cancel any time'] },
+      ],
+      funding: 'Across the EU, we will work with regional and national digital-education programmes. In Germany, for example, the state of Hessen already provides a maths platform to schools in its programme for disadvantaged schools.',
+    },
+  };
+  const plansEl = document.getElementById('plans');
+  const fundEl = document.getElementById('funding-line');
+  function renderPlans(r) {
+    if (!plansEl) return;
+    const d = PLANS[r];
+    plansEl.innerHTML = d.plans.map(p => `<div class="plan${p.featured ? ' featured' : ''}"><span class="who">${p.who}</span><h4>${p.name}</h4><div class="price">${p.price} <small>${p.per}</small></div><ul>${p.items.map(i => `<li>${i}</li>`).join('')}</ul></div>`).join('');
+    if (fundEl) fundEl.textContent = d.funding;
+  }
+  document.querySelectorAll('.region-tabs button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.region-tabs button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+    renderPlans(b.dataset.region);
+  }));
+  renderPlans('ie');
 })();
