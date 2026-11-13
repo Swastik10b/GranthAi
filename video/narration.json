@@ -5,23 +5,23 @@
  },
  {
   "id": "s02_problem",
-  "text": "Talented children everywhere fall behind, not for lack of ability, but for lack of support. In Ireland, only fifty-four percent of children in care complete the Leaving Cert. And one teacher cannot sit beside twenty-five children every night."
+  "text": "Talented children everywhere fall behind, not for lack of ability, but for lack of support. In Ireland, only fifty-four percent of children in care complete the Leaving Cert. One teacher cannot sit beside twenty-five children every night."
  },
  {
   "id": "s03_profile",
-  "text": "It starts with a profile. Aoife is nine. She picks what she loves: football, space and drawing. Then she names her AI tutor anything she likes: Pixel! From her first answers, a Bayesian model tracks what she knows, and what to review next."
+  "text": "It starts with a profile. Aoife is nine. She picks what she loves: football, space and drawing. From her first answers, a Bayesian model tracks what she knows, and what to review next."
  },
  {
   "id": "s04_compare",
-  "text": "Here's the difference. Aoife asks a general chatbot: what's three quarters plus a half? It hands her the answer, and she copies it. GranthAI asks her to try first. When she answers four sixths, it spots the exact mistake, draws the pieces, and lets her find five quarters herself."
+  "text": "Here's the difference. Aoife asks a general chatbot: what's three quarters plus a half? It hands her the answer, and she copies it. GranthAI asks her to try first. When she answers four sixths, it spots the mistake and helps her find five quarters herself."
  },
  {
   "id": "s05_prompts",
-  "text": "It works for every kind of question. Ask it to write your science homework, and it opens your teacher's notes and a leaf diagram, then asks what the plant needs from the sun. Ask for help revising, and it builds a quiz on your weakest topics. It never hands out answers. It helps children reach them."
+  "text": "It works for every kind of question. Asked to write her science homework, it opens the teacher's notes and asks what the leaf needs from the sun. Asked for revision, it builds a quiz on her weakest topics. It never hands out answers. It helps children reach them."
  },
  {
   "id": "s05v_voice",
-  "text": "And Aoife can simply talk it through, on a video call with Pixel, her own Zilo. Umm, I'm not sure, but three plus one is four, and four plus two is six, so four sixths? Its speech engine, tuned for children's voices and accents, hears the misconception behind her reasoning. Ooh, good thinking, Aoife, let's slow down and look at my drawing: how many quarters are there? Zilo coaches reading aloud too, and responds to what children say, never how they feel."
+  "text": "Aoife can also talk it through with Zilo, our voice tutor. Umm, I'm not sure, but three plus one is four, and four plus two is six, so four sixths? Zilo runs on advanced speech AI, tuned for children's voices and accents, so it understands the reasoning behind her words. Good thinking, Aoife, let's look at my drawing: how many quarters are there? It responds to what children say, never how they feel."
  },
  {
   "id": "s06_feed",
@@ -29,7 +29,7 @@
  },
  {
   "id": "s07_clusters",
-  "text": "Now picture four schools. Each child is a node. Our algorithms link children who share the same passions, across school walls, into clusters: a space club, a coding crew, an art studio. Aoife joins pupils from two other schools."
+  "text": "Now picture four schools. Each child is a node. Our algorithms link children with shared passions across school walls, into clusters: a space club, a coding crew, an art studio. Aoife joins pupils from two other schools."
  },
  {
   "id": "s08_mentors",
@@ -37,7 +37,7 @@
  },
  {
   "id": "s09_teachers",
-  "text": "Teachers get their time back. Schools upload their own curriculum and notes, and GranthAI shows where the class struggles, then helps plan the next lesson around them."
+  "text": "Teachers get their time back. Schools upload their own curriculum, and GranthAI shows where the class struggles, then helps plan the next lesson."
  },
  {
   "id": "s10_future",
@@ -49,6 +49,6 @@
  },
  {
   "id": "s12_close",
-  "text": "We are starting in Ireland's DEIS schools. Next, the UK. Then Europe, where millions of children learn in a second language. And one day, every community where one tablet serves a whole class. GranthAI. Innovation starts with you."
+  "text": "We start in Ireland's DEIS schools. Next, the UK. Then Europe, where millions of children learn in a second language. And one day, every community where one tablet serves a whole class. GranthAI. Innovation starts with you."
  }
 ]

@@ -15,9 +15,9 @@ sys.path.insert(0, os.path.dirname(__file__))
 from tts import TTS, g2p, SR  # noqa: E402
 
 VOICES = {
-    "narrator": dict(voice="af_heart:0.75,af_bella:0.25", speed=1.12, pitch=1.0),
-    "aoife": dict(voice="bf_lily:0.7,af_sky:0.3", speed=1.04, pitch=1.32),
-    "zilo": dict(voice="af_heart:0.55,af_sky:0.45", speed=1.06, pitch=1.22),
+    "narrator": dict(voice="af_heart:0.75,af_bella:0.25", speed=1.0, pitch=1.0),
+    "aoife": dict(voice="bf_lily:0.7,af_sky:0.3", speed=0.98, pitch=1.32),
+    "zilo": dict(voice="af_heart:0.55,af_sky:0.45", speed=0.98, pitch=1.22),
 }
 
 

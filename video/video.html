@@ -45,7 +45,7 @@
 <div id="stage"></div>
 <script>
 gsap.registerPlugin(TextPlugin);
-const LEAD = 0.38, TAIL = 0.5;
+const LEAD = 0.4, TAIL = 0.55;
 const A = '../site/assets/';
 const stage = document.getElementById('stage');
 const brand = `<div class="brand"><img class="m" src="${A}logo-mark.png"><img class="w" src="${A}wordmark.png"></div>`;
@@ -150,11 +150,7 @@ s03_profile: {
       <div style="font-size:20px;font-weight:700;margin-bottom:6px">Aoife’s interest profile</div>
       <div style="display:flex;justify-content:center">${radar([0.15, 0.15, 0.15, 0.15, 0.08, 0.06], 330)}</div>
       <div id="pf-learn" style="margin-top:16px;font-size:18px;color:var(--ink-2)">Explorer mode for age 9: playful, encouraging, short sentences.<br><b>A Bayesian model tracks what she knows, and what to review next.</b></div></div>
-    <div class="abs" id="pf-hero" style="left:438px;top:236px;width:184px;background:#fff;border-radius:16px;box-shadow:var(--shadow-up);padding:14px 16px 16px;text-align:center;border-top:5px solid var(--saffron)">
-      <div style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--saffron)">Name your AI tutor</div>
-      <div id="pf-z" style="width:84px;margin:6px auto 4px">${Zilo.svg('pfz')}</div>
-      <div id="pf-tn" style="border:1.5px solid var(--line);border-radius:9px;padding:6px 10px;font-size:20px;font-weight:800;color:var(--forest);min-height:30px">Zilo</div>
-      <div style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.35">Any name she likes, even a favourite film character</div></div></div></div>`,
+</div></div>`,
   anim(tl, T) {
     tl.from('.phone', { opacity: 0, y: 30, duration: 0.6 }, T(0, 0));
     tl.from('#pf-right', { opacity: 0, duration: 0.6 }, T(0, 0.4));
@@ -169,15 +165,8 @@ s03_profile: {
       tl.to('#rad', { attr: { points: poly(v) }, duration: 0.5 }, T(2, dt));
     });
     tl.set('#pf-ck', { backgroundColor: '#1E2A44', text: '✓' }, T(2, 3.0));
-    tl.from('#pf-hero', { opacity: 0, scale: 0.6, rotation: -6, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.out(2)' }, T(3, 0));
-    tl.to('#pf-tn', { text: { value: '' }, duration: 0.25, ease: 'none' }, T(3, 0.9));
-    tl.to('#pf-tn', { text: { value: 'Pixel' }, duration: 0.6, ease: 'none' }, T(3, 1.25));
-    tl.set('#pf-save', { text: 'Profile saved ✓' }, T(4, 0));
-    tl.from('#pf-learn', { opacity: 0, y: 10, duration: 0.5 }, T(4, 0.4));
-  },
-  frame(t, T) {
-    const el = document.querySelector('#pfz'); if (!el) return;
-    zFrame(el, t, [[0, 'happy'], [T(3, 1.0), 'thinking'], [T(3, 1.9), 'grin'], [T(4, 0.6), 'happy']], [[T(3, 1.9), T(3, 3.6)]], null);
+    tl.set('#pf-save', { text: 'Profile saved ✓' }, T(3, 0));
+    tl.from('#pf-learn', { opacity: 0, y: 10, duration: 0.5 }, T(3, 0.4));
   } },
 
 s04_compare: {
@@ -273,22 +262,22 @@ s05v_voice: {
   html: `<div class="scene"><div class="chapter">2 · Voice Tutor</div>${brand}
     <div class="h" style="font-size:32px">Talk it through with Zilo</div>
     <div class="win" id="vc-win" style="left:48px;top:122px;width:700px;height:560px">
-      <div class="bar-top" style="background:var(--forest);color:#fff"><img src="${A}logo-tile.png" style="width:22px;height:22px;border-radius:5px"> GranthAI · Video call with Pixel, Aoife’s Zilo <span style="margin-left:auto;font-size:12px;background:#C9687C;border-radius:99px;padding:2px 9px">● LIVE</span></div>
+      <div class="bar-top" style="background:var(--forest);color:#fff"><img src="${A}logo-tile.png" style="width:22px;height:22px;border-radius:5px"> GranthAI · Video call with Zilo <span style="margin-left:auto;font-size:12px;background:#C9687C;border-radius:99px;padding:2px 9px">● LIVE</span></div>
       <div class="abs" style="left:0;right:0;top:42px;bottom:0;background:var(--grad)">
         <div class="abs" id="vc-ring" style="left:262px;top:236px;width:176px;height:26px;border-radius:50%;background:rgba(30,42,68,0.14)"></div>
         <div class="abs" id="vc-zilo" style="left:282px;top:14px;width:136px">${Zilo.svg('vz')}</div>
         <div class="abs" id="vc-zwave" style="left:318px;top:272px;display:flex;gap:4px;align-items:center;height:22px;opacity:0">${Array.from({length: 9}, () => '<i style="display:block;width:5px;height:5px;border-radius:3px;background:#5B6FB0"></i>').join('')}</div>
-        <div class="abs" id="vc-pic" style="left:478px;top:60px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)"><div class="type" style="margin-bottom:6px">Pixel draws</div>${frac([{ n: 3, d: 4, label: '3/4' }, { n: 2, d: 4, c: '#8E3B4C', label: '1/2 = 2/4' }], 120)}</div>
+        <div class="abs" id="vc-pic" style="left:478px;top:60px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)"><div class="type" style="margin-bottom:6px">Zilo draws</div>${frac([{ n: 3, d: 4, label: '3/4' }, { n: 2, d: 4, c: '#8E3B4C', label: '1/2 = 2/4' }], 120)}</div>
         <div class="abs" id="vc-self" style="left:24px;top:24px;width:150px;height:104px;background:#1E2A44;border-radius:12px;display:grid;place-items:center">
           <div class="avatar" style="width:46px;height:46px;font-size:22px">A</div>
           <div class="abs" style="left:10px;bottom:8px;font-size:12px;color:#fff;font-weight:700">Aoife</div>
           <div class="abs" id="vc-wave" style="right:10px;bottom:9px;display:flex;gap:2px;align-items:flex-end;height:18px">${Array.from({length: 6}, () => '<i style="display:block;width:3px;height:4px;border-radius:2px;background:#E8A8B6"></i>').join('')}</div></div>
         <div class="abs" id="vc-cap1" style="left:24px;right:24px;top:300px"><div class="msg me" style="max-width:88%;margin-left:auto;font-size:15.5px"><span class="tag" style="color:#E8A8B6">Aoife · speaking</span>Umm… I’m not sure, but three plus one is four, and four plus two is six… so four sixths?</div></div>
-        <div class="abs" id="vc-cap2" style="left:24px;right:24px;top:420px"><div class="msg bot" style="max-width:90%;font-size:15.5px"><span class="tag">Pixel (Zilo) · speaking</span>Ooh, good thinking, Aoife! Let’s slow down and look at my drawing: how many quarters are there?</div></div>
+        <div class="abs" id="vc-cap2" style="left:24px;right:24px;top:420px"><div class="msg bot" style="max-width:90%;font-size:15.5px"><span class="tag">Zilo · speaking</span>Good thinking, Aoife! Let’s look at my drawing: how many quarters are there?</div></div>
       </div></div>
     <div class="abs" style="left:780px;top:120px;width:452px">
       <div class="cardx" id="vs-speech" style="position:relative;padding:14px 16px">
-        <div style="font-size:12.5px;font-weight:700;color:var(--saffron);text-transform:uppercase;letter-spacing:.8px">Speech understanding</div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--saffron);text-transform:uppercase;letter-spacing:.8px">Advanced speech AI</div>
         <div style="font-size:15px;font-weight:700;margin-top:6px">🎙 Tuned for children’s voices, accents and home languages</div>
         <div id="vs-tr" style="margin-top:8px;background:var(--alt);border-radius:9px;padding:8px 10px;font-size:14px;color:var(--ink-2)">“three plus one is four… four plus two is six…”</div>
         <div id="vs-mis" style="margin-top:8px;display:flex;gap:8px;align-items:center;font-size:14.5px"><span style="color:var(--saffron);font-weight:800">→</span><span>Misconception found: <b>adds tops and bottoms</b></span></div></div>
@@ -322,7 +311,7 @@ s05v_voice: {
     const zm = (MOUTH.zilo || [])[0], am = (MOUTH.aoife || [])[0];
     const env = (m, off) => { if (!m) return 0; const k = Math.floor((t - LEAD - m.t) * 30); return k >= 0 && k < m.env.length ? m.env[k] : 0; };
     zFrame(el, t, [[0, 'happy'], [T(1, -0.2), 'listen'], [T(1, 2.6), 'thinking'], [T(2, 2.6), 'surprised'], [T(2, 3.4), 'thinking'], [T(3, -0.3), 'talk'], [T(4, -0.4), 'grin'], [T(4, 1.6), 'happy']],
-      [[T(0, 1.0), T(0, 3.4)], [T(4, 2.8), T(4, 4.6)]], zm ? env(zm) : null);
+      [[T(0, 0.9), T(0, 3.0)], [T(4, 0.8), T(4, 2.6)]], zm ? env(zm) : null);
     document.querySelectorAll('#vc-zwave i').forEach((b, k) => { b.style.height = (5 + 17 * env(zm) * (0.55 + 0.45 * Math.abs(Math.sin(k * 1.7 + t * 9)))) + 'px'; });
     document.querySelectorAll('#vc-wave i').forEach((b, k) => { b.style.height = (4 + 13 * env(am) * (0.5 + 0.5 * Math.abs(Math.sin(k * 2.1 + t * 11)))) + 'px'; });
   } },
@@ -560,7 +549,7 @@ function setup(id) {
   const tl = gsap.timeline({ paused: true });
   const T = (i, dt = 0) => Math.max(0, LEAD + (d.sentences[i] || 0) + dt);
   sc.anim(tl, T); curSc = sc; curT = T;
-  const total = LEAD + d.seconds + (id === 's12_close' ? 2.0 : TAIL);
+  const total = LEAD + d.seconds + (id === 's12_close' ? 1.8 : TAIL);
   tl.set({}, {}, total);
   current = tl; tl.seek(0);
   return total;

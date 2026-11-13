@@ -1,10 +1,10 @@
 {
  "id": "s05v_voice",
- "gap": 0.3,
+ "gap": 0.4,
  "lines": [
   {
    "who": "narrator",
-   "text": "And Aoife can simply talk it through, on a video call with Pixel, her own Zilo."
+   "text": "Aoife can also talk it through with Zilo, our voice tutor."
   },
   {
    "who": "aoife",
@@ -12,15 +12,15 @@
   },
   {
    "who": "narrator",
-   "text": "Its speech engine, tuned for children's voices and accents, hears the misconception behind her reasoning."
+   "text": "Zilo runs on advanced speech AI, tuned for children's voices and accents, so it understands the reasoning behind her words."
   },
   {
    "who": "zilo",
-   "text": "Ooh, good thinking, Aoife, let's slow down and look at my drawing: how many quarters are there?"
+   "text": "Good thinking, Aoife, let's look at my drawing: how many quarters are there?"
   },
   {
    "who": "narrator",
-   "text": "Zilo coaches reading aloud too, and responds to what children say, never how they feel."
+   "text": "It responds to what children say, never how they feel."
   }
  ]
 }

@@ -6,7 +6,7 @@ import json, re, subprocess, os
 import numpy as np
 from scipy.io import wavfile
 
-FPS, LEAD, TAIL, LAST_TAIL, SR = 30, 0.38, 0.5, 2.0, 24000
+FPS, LEAD, TAIL, LAST_TAIL, SR = 30, 0.4, 0.55, 1.8, 24000
 dur = json.load(open("out/vo/durations.json"))
 script = {s["id"]: s["text"] for s in json.load(open("video/narration.json"))}
 
