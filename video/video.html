@@ -44,7 +44,7 @@
 <div id="stage"></div>
 <script>
 gsap.registerPlugin(TextPlugin);
-const LEAD = 0.45, TAIL = 0.7;
+const LEAD = 0.38, TAIL = 0.5;
 const A = '../site/assets/';
 const stage = document.getElementById('stage');
 const brand = `<div class="brand"><img class="m" src="${A}logo-mark.png"><img class="w" src="${A}wordmark.png"></div>`;
@@ -148,7 +148,13 @@ s03_profile: {
     <div class="abs" style="left:640px;top:150px;width:560px;text-align:center" id="pf-right">
       <div style="font-size:20px;font-weight:700;margin-bottom:6px">Aoife’s interest profile</div>
       <div style="display:flex;justify-content:center">${radar([0.15, 0.15, 0.15, 0.15, 0.08, 0.06], 330)}</div>
-      <div id="pf-learn" style="margin-top:16px;font-size:18px;color:var(--ink-2)">Explorer mode for age 9: playful, encouraging, short sentences.<br><b>A Bayesian model tracks what she knows, and what to review next.</b></div></div></div>`,
+      <div id="pf-learn" style="margin-top:16px;font-size:18px;color:var(--ink-2)">Explorer mode for age 9: playful, encouraging, short sentences.<br><b>A Bayesian model tracks what she knows, and what to review next.</b></div></div>
+    <div class="abs" id="pf-hero" style="left:462px;top:262px;width:200px;background:#fff;border-radius:16px;box-shadow:var(--shadow-up);padding:14px 16px;text-align:center;border-top:5px solid var(--saffron)">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--saffron)">Superhero identity</div>
+      <div style="font-size:40px;line-height:1.2;margin:4px 0">☄️</div>
+      <div style="font-size:20px;font-weight:800;color:var(--ink)">Captain Comet</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px">Power: asks brilliant questions</div>
+      <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;font-size:11.5px;color:var(--faint)"><span>⚽ Star Striker</span><span>🎨 Pixel Phoenix</span></div></div></div>`,
   anim(tl, T) {
     tl.from('.phone', { opacity: 0, y: 30, duration: 0.6 }, T(0, 0));
     tl.from('#pf-right', { opacity: 0, duration: 0.6 }, T(0, 0.4));
@@ -163,8 +169,11 @@ s03_profile: {
       tl.to('#rad', { attr: { points: poly(v) }, duration: 0.5 }, T(2, dt));
     });
     tl.set('#pf-ck', { backgroundColor: '#1E2A44', text: '✓' }, T(2, 3.0));
-    tl.set('#pf-save', { text: 'Profile saved ✓' }, T(3, 0));
-    tl.from('#pf-learn', { opacity: 0, y: 10, duration: 0.5 }, T(3, 0.4));
+    tl.from('#pf-hero', { opacity: 0, scale: 0.6, rotation: -6, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.out(2)' }, T(3, 0));
+    tl.set('#pf-top', { text: 'Captain Comet (Aoife)' }, T(3, 0.6));
+    tl.set('.phone .avatar', { text: '☄️' }, T(3, 0.6));
+    tl.set('#pf-save', { text: 'Profile saved ✓' }, T(4, 0));
+    tl.from('#pf-learn', { opacity: 0, y: 10, duration: 0.5 }, T(4, 0.4));
   } },
 
 s04_compare: {
@@ -258,52 +267,54 @@ s05_prompts: {
 
 s05v_voice: {
   html: `<div class="scene"><div class="chapter">2 · Voice Tutor</div>${brand}
-    <div class="h" style="font-size:32px">Talk it through with Nova</div>
+    <div class="h" style="font-size:32px">Talk it through with Zilo</div>
     <div class="win" id="vc-win" style="left:48px;top:122px;width:700px;height:560px">
-      <div class="bar-top" style="background:var(--forest);color:#fff"><img src="${A}logo-tile.png" style="width:22px;height:22px;border-radius:5px"> GranthAI · Video call with Nova <span style="margin-left:auto;font-size:12px;background:#C9687C;border-radius:99px;padding:2px 9px">● LIVE</span></div>
+      <div class="bar-top" style="background:var(--forest);color:#fff"><img src="${A}logo-tile.png" style="width:22px;height:22px;border-radius:5px"> GranthAI · Video call with Zilo <span style="margin-left:auto;font-size:12px;background:#C9687C;border-radius:99px;padding:2px 9px">● LIVE</span></div>
       <div class="abs" style="left:0;right:0;top:42px;bottom:0;background:var(--grad)">
-        <div class="abs" id="vc-nova" style="left:225px;top:40px"><svg viewBox="0 0 150 150" width="250" height="250" style="overflow:visible">
-<ellipse cx="75" cy="146" rx="34" ry="4.5" fill="rgba(30,42,68,0.16)"/>
-<g id="nv-body">
-<path d="M75 40 V22 M75 28 L63 16 M75 28 L87 16" stroke="#1E2A44" stroke-width="4" stroke-linecap="round" fill="none"/>
-<circle id="nv-n1" cx="63" cy="15" r="4" fill="#8E3B4C"/><circle id="nv-n2" cx="87" cy="15" r="4" fill="#8E3B4C"/><circle id="nv-n3" cx="75" cy="20" r="4.5" fill="#8E3B4C"/>
-<ellipse cx="75" cy="88" rx="47" ry="50" fill="#5B6FB0"/><ellipse cx="75" cy="106" rx="29" ry="26" fill="#DCE1F3"/>
-<g id="nv-eyes"><circle cx="57" cy="78" r="11.5" fill="#fff"/><circle cx="93" cy="78" r="11.5" fill="#fff"/><circle cx="59" cy="80" r="5.8" fill="#141B2D"/><circle cx="95" cy="80" r="5.8" fill="#141B2D"/></g>
-<circle cx="47" cy="96" r="5" fill="#E8A8B6" opacity="0.85"/><circle cx="103" cy="96" r="5" fill="#E8A8B6" opacity="0.85"/>
-<ellipse id="nv-mouth" cx="75" cy="99" rx="8" ry="3" fill="#141B2D"/>
-</g></svg></div>
-        <div class="abs" id="vc-pic" style="left:470px;top:70px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)"><div class="type" style="margin-bottom:6px">Nova draws</div>${frac([{ n: 3, d: 4, label: '3/4' }, { n: 2, d: 4, c: '#8E3B4C', label: '1/2 = 2/4' }], 120)}</div>
+        <div class="abs" id="vc-ring" style="left:262px;top:236px;width:176px;height:26px;border-radius:50%;background:rgba(30,42,68,0.14)"></div>
+        <img class="abs" id="vc-zilo" src="${A}zilo.png" style="left:285px;top:16px;height:250px;width:auto">
+        <div class="abs" id="vc-zwave" style="left:318px;top:272px;display:flex;gap:4px;align-items:center;height:22px;opacity:0">${Array.from({length: 9}, () => '<i style="display:block;width:5px;height:5px;border-radius:3px;background:#5B6FB0"></i>').join('')}</div>
+        <div class="abs" id="vc-pic" style="left:478px;top:60px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)"><div class="type" style="margin-bottom:6px">Zilo draws</div>${frac([{ n: 3, d: 4, label: '3/4' }, { n: 2, d: 4, c: '#8E3B4C', label: '1/2 = 2/4' }], 120)}</div>
         <div class="abs" id="vc-self" style="left:24px;top:24px;width:150px;height:104px;background:#1E2A44;border-radius:12px;display:grid;place-items:center">
-          <div class="avatar" style="width:46px;height:46px;font-size:19px">A</div>
-          <div class="abs" style="left:10px;bottom:8px;font-size:12px;color:#fff;font-weight:700">Aoife</div>
+          <div class="avatar" style="width:46px;height:46px;font-size:22px">☄️</div>
+          <div class="abs" style="left:10px;bottom:8px;font-size:12px;color:#fff;font-weight:700">Captain Comet</div>
           <div class="abs" id="vc-wave" style="right:10px;bottom:9px;display:flex;gap:2px;align-items:flex-end;height:18px">${Array.from({length: 6}, () => '<i style="display:block;width:3px;height:4px;border-radius:2px;background:#E8A8B6"></i>').join('')}</div></div>
-        <div class="abs" id="vc-cap1" style="left:24px;right:24px;top:330px"><div class="msg me" style="max-width:85%;margin-left:auto;font-size:16px"><span class="tag" style="color:#E8A8B6">Aoife · speaking</span>Umm… I think it’s four sixths? I’m not sure.</div></div>
-        <div class="abs" id="vc-cap2" style="left:24px;right:24px;top:418px"><div class="msg bot" style="max-width:88%;font-size:16px"><span class="tag">Nova</span>Good thinking! Let’s slow down. Look at my drawing: how many quarters are there altogether?</div></div>
+        <div class="abs" id="vc-cap1" style="left:24px;right:24px;top:318px"><div class="msg me" style="max-width:88%;margin-left:auto;font-size:15.5px"><span class="tag" style="color:#E8A8B6">Captain Comet (Aoife) · speaking</span>Umm… three plus one is four, four plus two is six… so four sixths? I’m not sure.</div></div>
+        <div class="abs" id="vc-cap2" style="left:24px;right:24px;top:420px"><div class="msg bot" style="max-width:90%;font-size:15.5px"><span class="tag">Zilo</span>Good thinking, Captain Comet! Let’s slow down. Look at my drawing: how many quarters are there altogether?</div></div>
       </div></div>
-    <div class="abs" style="left:790px;top:132px;width:440px">
-      <div style="font-size:15px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Learning signals</div>
-      ${[['…', '4-second pause'], ['💬', '“I’m not sure”'], ['↺', 'Second attempt']].map(([i, t]) => `<div class="cardx vs" style="position:relative;margin-bottom:12px;display:flex;gap:14px;align-items:center;font-size:19px;font-weight:700"><span style="font-size:24px">${i}</span>${t}</div>`).join('')}
-      <div style="font-size:34px;text-align:center;color:var(--saffron);margin:2px 0" id="vs-arrow">↓</div>
-      <div class="cardx" id="vs-out" style="position:relative;background:var(--forest);color:#fff"><b style="font-size:19px">Nova adapts</b><div style="color:#D5DAEA;margin-top:4px;font-size:16px">Slows down · rephrases · draws a picture</div></div>
+    <div class="abs" style="left:780px;top:120px;width:452px">
+      <div class="cardx" id="vs-speech" style="position:relative;padding:14px 16px">
+        <div style="font-size:12.5px;font-weight:700;color:var(--saffron);text-transform:uppercase;letter-spacing:.8px">Speech understanding</div>
+        <div style="font-size:15px;font-weight:700;margin-top:6px">🎙 Tuned for children’s voices, accents and home languages</div>
+        <div id="vs-tr" style="margin-top:8px;background:var(--alt);border-radius:9px;padding:8px 10px;font-size:14px;color:var(--ink-2)">“three plus one is four… four plus two is six…”</div>
+        <div id="vs-mis" style="margin-top:8px;display:flex;gap:8px;align-items:center;font-size:14.5px"><span style="color:var(--saffron);font-weight:800">→</span><span>Misconception found: <b>adds tops and bottoms</b></span></div></div>
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Learning signals</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${[['…', 'long pause'], ['💬', '“I’m not sure”'], ['↺', 'second attempt']].map(([i, t]) => `<span class="vs" style="background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:14.5px;font-weight:700">${i} ${t}</span>`).join('')}</div>
+      <div class="cardx" id="vs-out" style="position:relative;margin-top:12px;background:var(--forest);color:#fff;padding:12px 16px"><b style="font-size:17px">Zilo adapts</b><div style="color:#D5DAEA;margin-top:2px;font-size:14.5px">Slows down · rephrases · draws a picture</div></div>
+      <div class="cardx" id="vs-read" style="position:relative;margin-top:12px;padding:12px 16px;display:flex;gap:12px;align-items:center"><span style="font-size:26px">📖</span><div><b style="font-size:15.5px">Reading aloud, coached</b><div style="color:var(--muted);font-size:14px">96 words a minute · 2 tricky words to practise</div></div></div>
     </div>
-    <div class="abs" id="vc-badge" style="left:790px;top:620px;width:440px;text-align:center;font-size:14px;font-weight:700;color:var(--forest);background:#E9ECF7;border-radius:99px;padding:9px">Works from what children say · no emotion detection · audio deleted at once</div></div>`,
+    <div class="abs" id="vc-badge" style="left:780px;top:628px;width:452px;text-align:center;font-size:13.5px;font-weight:700;color:var(--forest);background:#E9ECF7;border-radius:99px;padding:9px">Works from what children say · no emotion detection · audio deleted at once</div></div>`,
   anim(tl, T) {
     tl.from('.h', { opacity: 0, duration: 0.5 }, T(0, 0));
     tl.from('#vc-win', { opacity: 0, y: 24, duration: 0.6 }, T(0, 0.1));
-    tl.from('#vc-nova', { scale: 0.3, opacity: 0, transformOrigin: '50% 80%', duration: 0.7, ease: 'back.out(2)' }, T(0, 0.5));
-    tl.to('#nv-body', { y: -6, duration: 1.1, yoyo: true, repeat: 9, ease: 'sine.inOut' }, T(0, 1.2));
-    tl.to('#nv-eyes', { scaleY: 0.1, transformOrigin: '50% 50%', duration: 0.08, yoyo: true, repeat: 1 }, T(1, 0.6));
-    tl.to('#nv-eyes', { scaleY: 0.1, transformOrigin: '50% 50%', duration: 0.08, yoyo: true, repeat: 1 }, T(3, 1.2));
+    tl.from('#vc-zilo', { scale: 0.3, opacity: 0, transformOrigin: '50% 90%', duration: 0.7, ease: 'back.out(2)' }, T(0, 0.5));
+    tl.from('#vc-ring', { scale: 0.3, opacity: 0, transformOrigin: '50% 50%', duration: 0.6 }, T(0, 0.6));
+    tl.to('#vc-zilo', { y: -7, duration: 1.1, yoyo: true, repeat: 13, ease: 'sine.inOut' }, T(0, 1.3));
     tl.from('#vc-self', { opacity: 0, x: -20, duration: 0.4 }, T(1, 0));
     tl.from('#vc-cap1', { opacity: 0, y: 12, duration: 0.4 }, T(1, 0.5));
-    document.querySelectorAll('#vc-wave i').forEach((b, k) => tl.to(b, { height: 6 + (k * 7) % 13, duration: 0.18, yoyo: true, repeat: 13, ease: 'sine.inOut' }, T(1, 0.5 + k * 0.04)));
-    tl.from('.vs', { opacity: 0, x: 24, stagger: 0.55, duration: 0.4 }, T(2, 0.2));
-    tl.from('#vs-arrow', { opacity: 0, duration: 0.3 }, T(2, 2.0));
-    tl.from('#vs-out', { opacity: 0, y: 12, duration: 0.45 }, T(2, 2.3));
-    tl.from('#vc-cap2', { opacity: 0, y: 12, duration: 0.4 }, T(2, 2.6));
-    tl.to('#nv-mouth', { attr: { ry: 7 }, duration: 0.14, yoyo: true, repeat: 17, ease: 'sine.inOut' }, T(2, 2.6));
-    tl.from('#vc-pic', { opacity: 0, scale: 0.8, transformOrigin: 'left top', duration: 0.5, ease: 'back.out(1.8)' }, T(2, 3.4));
-    tl.from('#vc-badge', { opacity: 0, y: 10, duration: 0.5 }, T(3, 0));
+    document.querySelectorAll('#vc-wave i').forEach((b, k) => tl.to(b, { height: 6 + (k * 7) % 13, duration: 0.18, yoyo: true, repeat: 15, ease: 'sine.inOut' }, T(1, 0.5 + k * 0.04)));
+    tl.from('#vs-speech', { opacity: 0, x: 24, duration: 0.45 }, T(2, 0));
+    tl.from('#vs-tr', { opacity: 0, duration: 0.4 }, T(2, 1.2));
+    tl.from('#vs-mis', { opacity: 0, x: -10, duration: 0.4 }, T(2, 3.0));
+    tl.from('.vs', { opacity: 0, y: 10, stagger: 0.45, duration: 0.35 }, T(3, 0.2));
+    tl.from('#vs-out', { opacity: 0, y: 12, duration: 0.45 }, T(3, 1.8));
+    tl.from('#vc-cap2', { opacity: 0, y: 12, duration: 0.4 }, T(3, 2.1));
+    tl.to('#vc-zwave', { opacity: 1, duration: 0.2 }, T(3, 2.1));
+    document.querySelectorAll('#vc-zwave i').forEach((b, k) => tl.to(b, { height: 8 + (k * 5) % 16, duration: 0.16, yoyo: true, repeat: 19, ease: 'sine.inOut' }, T(3, 2.1 + k * 0.03)));
+    tl.to('#vc-zwave', { opacity: 0, duration: 0.3 }, T(3, 5.6));
+    tl.from('#vc-pic', { opacity: 0, scale: 0.8, transformOrigin: 'left top', duration: 0.5, ease: 'back.out(1.8)' }, T(3, 2.8));
+    tl.from('#vs-read', { opacity: 0, y: 12, duration: 0.45 }, T(4, 0));
+    tl.from('#vc-badge', { opacity: 0, y: 10, duration: 0.5 }, T(4, 1.6));
   } },
 
 s06_feed: {
@@ -527,7 +538,7 @@ function setup(id) {
   const tl = gsap.timeline({ paused: true });
   const T = (i, dt = 0) => Math.max(0, LEAD + (d.sentences[i] || 0) + dt);
   sc.anim(tl, T);
-  const total = LEAD + d.seconds + (id === 's12_close' ? 2.4 : TAIL);
+  const total = LEAD + d.seconds + (id === 's12_close' ? 2.0 : TAIL);
   tl.set({}, {}, total);
   current = tl; tl.seek(0);
   return total;

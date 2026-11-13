@@ -9,7 +9,7 @@
  },
  {
   "id": "s03_profile",
-  "text": "It starts with a profile. Aoife is nine. She picks what she loves: football, space and drawing. From her first answers, a Bayesian model tracks what she knows, and what to review next."
+  "text": "It starts with a profile. Aoife is nine. She picks what she loves: football, space and drawing. Then she becomes her own superhero, Captain Comet! From her first answers, a Bayesian model tracks what she knows, and what to review next."
  },
  {
   "id": "s04_compare",
@@ -17,11 +17,11 @@
  },
  {
   "id": "s05_prompts",
-  "text": "It works for every kind of question. Ask it to write your science homework, and it opens your teacher's notes and a diagram of a leaf, then asks what the plant needs from the sun. Ask for help revising, and it builds a quiz on your weakest topics. It never hands out answers. It helps children reach them."
+  "text": "It works for every kind of question. Ask it to write your science homework, and it opens your teacher's notes and a leaf diagram, then asks what the plant needs from the sun. Ask for help revising, and it builds a quiz on your weakest topics. It never hands out answers. It helps children reach them."
  },
  {
   "id": "s05v_voice",
-  "text": "And Aoife can simply talk it through! On a video call, she explains her thinking to Nova, our animated AI tutor. When she pauses, says she's not sure, or tries again, Nova slows down, rephrases, and draws a picture. Nova responds to what children say, never how they feel, and keeps no recordings."
+  "text": "And Aoife can simply talk it through! On a video call, she explains her thinking to Zilo, our animated AI tutor. Built for young voices, accents and home languages, Zilo turns her spoken reasoning into the exact misconception behind it. When she pauses, says she's not sure, or tries again, Zilo slows down, rephrases, and draws a picture. It even coaches reading aloud, and responds to what children say, never how they feel, with no recordings kept."
  },
  {
   "id": "s06_feed",

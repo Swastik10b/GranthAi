@@ -407,7 +407,7 @@ footer.site a { color: #D6DAEA; text-decoration: none; margin-left: 18px; }
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-    .roadmap.in .flight .plane, .roadmap.in .flight .trail, .roadmap.in .flight .plane svg, .nova-anim *, .wave i { animation: none !important; }
+    .roadmap.in .flight .plane, .roadmap.in .flight .trail, .roadmap.in .flight .plane svg, .voice-demo img.zilo, .wave i { animation: none !important; }
     .flight { display: none; }
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
@@ -491,7 +491,7 @@ footer.site .logo .mark { height: 46px; background: #fff; border-radius: 8px; pa
 .flag-card ul { margin: 0; padding-left: 18px; color: var(--text); font-size: 15px; }
 .flag-card li { margin-bottom: 6px; }
 .voice-demo { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: center; background: var(--grad); border-radius: 14px; padding: 18px; }
-.voice-demo svg.nova { width: 150px; height: 150px; display: block; }
+.voice-demo img.zilo { width: 128px; height: auto; justify-self: center; display: block; animation: float 3.2s ease-in-out infinite; }
 .vchat { display: grid; gap: 8px; font-size: 14px; }
 .vchat .b { background: #fff; border-radius: 12px; padding: 9px 12px; box-shadow: 0 1px 4px rgba(30,42,68,0.08); }
 .vchat .b.kid { justify-self: end; background: var(--forest); color: #fff; }
@@ -547,3 +547,8 @@ footer.site .logo .mark { height: 46px; background: #fff; border-radius: 8px; pa
     .curr-flow .arrow { transform: rotate(90deg); justify-self: center; }
     .plans { grid-template-columns: 1fr; }
 }
+
+/* superhero identity chips in the app demo */
+.heroes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.hero-chip { font: inherit; font-size: 13px; font-weight: 600; text-align: left; border: 1.5px solid var(--line); background: #fff; color: var(--ink-2); border-radius: 10px; padding: 7px 9px; cursor: pointer; }
+.hero-chip[aria-pressed="true"] { border-color: var(--saffron); background: var(--leaf); color: var(--saffron); }
