@@ -519,7 +519,7 @@
   };
   function explain(k) {
     const [h, p, li] = EXPLAIN[k];
-    explainEl.innerHTML = `<h3>${h}</h3><p>${p}</p><div class="how"><h4>Under the hood</h4><ul>${li.map(x => `<li>${x}</li>`).join('')}</ul></div>
+    explainEl.innerHTML = `<h3>${h}</h3><p>${p}</p><div class="how"><h4>How it works</h4><ul>${li.map(x => `<li>${x}</li>`).join('')}</ul></div>
       <p class="demo-note">Demo data only. Names, schools and mentors are fictional.</p>`;
   }
 
