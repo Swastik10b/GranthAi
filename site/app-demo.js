@@ -49,7 +49,7 @@
 
   // ---------- state ----------
   const S = {
-    name: 'Aoife', hero: 'Captain Comet', age: 9, interests: new Set(['football', 'space', 'drawing']), lang: 'English', consent: true, saved: false,
+    name: 'Aoife', tutor: 'Zilo', age: 9, interests: new Set(['football', 'space', 'drawing']), lang: 'English', consent: true, saved: false,
     xp: 120, streak: 4, pL: 0.32, screen: 'profile',
     mode: 'granth', prob: { n1: 3, d1: 4, n2: 1, d2: 2 }, attempts: 0, hint: 0, solved: false,
     chat: null, generic: [], mood: null, clusters: null, mentorReq: false, lesson: false,
@@ -61,9 +61,8 @@
     const m = Math.max(1, ...v); return v.map(x => x / m);
   }
 
-  // superhero identities children can choose (original characters)
-  const HEROES = [['Captain Comet', '☄️'], ['Star Striker', '⚽'], ['Pixel Phoenix', '🎨'], ['Thunder Thinker', '⚡']];
-  const callName = () => S.hero || S.name;
+  const callName = () => S.name;
+  try { const t = localStorage.getItem('granthai-tutor-name'); if (t) S.tutor = t; } catch (e) { /* storage unavailable */ }
 
   // ---------- header ----------
   function header(teacher) {
@@ -74,7 +73,7 @@
       document.getElementById('app-xp').textContent = 'Week 6';
     } else {
       av.textContent = (S.name || '?')[0].toUpperCase(); av.style.background = 'var(--saffron)';
-      nm.textContent = S.hero ? `${S.hero} (${S.name})` : (S.name || 'New learner'); sub.textContent = `Age ${S.age} · ${band(S.age).name}`;
+      nm.textContent = S.name || 'New learner'; sub.textContent = `Age ${S.age} · ${band(S.age).name}`;
       document.getElementById('app-streak').textContent = `${S.streak}-day streak`;
       document.getElementById('app-xp').textContent = `${S.xp} XP`;
     }
@@ -112,8 +111,9 @@
         <label class="label" for="p-age">Age: <b id="p-age-v">${S.age}</b></label>
         <input class="range" id="p-age" type="range" min="8" max="17" value="${S.age}">
         <div class="persona" id="p-persona"><b>${b.name} mode.</b> ${b.tone}</div>
-        <span class="label">Choose your superhero identity</span>
-        <div class="heroes" id="p-heroes">${HEROES.map(([h, e]) => `<button class="hero-chip" data-h="${h}" aria-pressed="${S.hero === h}">${e} ${h}</button>`).join('')}</div>
+        <label class="label" for="p-tutor">Name your AI tutor</label>
+        <div class="tutor-field"><span class="zmini" aria-hidden="true">${window.Zilo ? Zilo.svg('zilo-mini') : ''}</span><input class="field" id="p-tutor" value="${esc(S.tutor)}" maxlength="18" autocomplete="off" placeholder="Zilo"></div>
+        <div class="meta" style="margin-top:4px">Call Zilo anything you like, even your favourite film or anime character.</div>
         <span class="label">What do you love? Pick a few</span>
         <div class="chips" id="p-ints">${INTERESTS.map(([k, l, e]) => `<button class="chip" data-k="${k}" aria-pressed="${S.interests.has(k)}">${e} ${l}</button>`).join('')}</div>
         <label class="label" for="p-lang">Language</label>
@@ -142,10 +142,7 @@
       const k = c.dataset.k; S.interests.has(k) ? S.interests.delete(k) : S.interests.add(k);
       c.setAttribute('aria-pressed', S.interests.has(k)); S.clusters = null; S.saved = false; refresh();
     }));
-    $$('#p-heroes .hero-chip').forEach(c => c.addEventListener('click', () => {
-      S.hero = S.hero === c.dataset.h ? '' : c.dataset.h; S.chat = null;
-      $$('#p-heroes .hero-chip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.h === S.hero))); refresh();
-    }));
+    $('#p-tutor').addEventListener('input', e => { S.tutor = e.target.value.trim() || 'Zilo'; S.chat = null; });
     $('#p-lang').addEventListener('change', e => { S.lang = e.target.value; });
     $('#p-consent').addEventListener('change', e => { S.consent = e.target.checked; });
     $('#p-save').addEventListener('click', () => {
@@ -194,7 +191,7 @@
   function startChat() {
     S.chat = [];
     const b = band(S.age);
-    bot(`${b.hi.replace('{n}', esc(callName()))} What is <b>${pq()}</b>? Have a go first, a guess is fine!`, 'GranthAI tutor');
+    bot(`${b.hi.replace('{n}', esc(callName()))} What is <b>${pq()}</b>? Have a go first, a guess is fine!`, `${esc(S.tutor)} · GranthAI tutor`);
   }
   function equivBars() {
     const { n1, d1, n2, d2 } = S.prob, L = lcm(d1, d2);
@@ -511,7 +508,7 @@
   // ---------- explanations ----------
   const EXPLAIN = {
     profile: ['A profile in two minutes', 'Children pick what they love, their language and their age. GranthAI turns that into a starting interest profile and an age-appropriate personality, then keeps learning from what they do.',
-      ['Interests map onto six career-interest dimensions (based on the RIASEC model) that drive the feed, clubs and Future Me.', 'Five age bands from 8 to 17 change tone, humour, vocabulary and difficulty. Move the age slider to see it.', 'Children can choose an original superhero identity; the tutor and Zilo address them by their hero name, building ownership and confidence.', 'A teacher confirms consent before anything is saved. No advertising, ever.']],
+      ['Interests map onto six career-interest dimensions (based on the RIASEC model) that drive the feed, clubs and Future Me.', 'Five age bands from 8 to 17 change tone, humour, vocabulary and difficulty. Move the age slider to see it.', 'Children can rename Zilo, their AI tutor, anything they like, which builds a sense of ownership; it stays the same safe, curriculum-aligned tutor.', 'A teacher confirms consent before anything is saved. No advertising, ever.']],
     learn: ['A tutor that teaches, not tells', 'Answer 4/6 to see the misconception diagnosis, ask for the answer to climb the hint ladder, then switch to “General chatbot” to compare.',
       ['A “bug library” of known misconceptions recognises the exact mistake, not just “wrong”.', 'The hint ladder never gives the final answer until the child has made an attempt.', 'Bayesian knowledge tracing updates the mastery estimate after every answer.']],
     feed: ['A feed that keeps them curious', 'News, discoveries, projects and books ranked around the child’s interests. Change the interests on the profile screen and the feed changes.',

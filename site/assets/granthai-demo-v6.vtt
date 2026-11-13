@@ -29,158 +29,158 @@ In Ireland, only fifty-four percent of children in care complete the Leaving Cer
 And one teacher cannot sit beside twenty-five children every night.
 
 8
-00:00:27.113 --> 00:00:28.643
+00:00:27.113 --> 00:00:28.573
 It starts with a profile.
 
 9
-00:00:28.693 --> 00:00:29.913
+00:00:28.623 --> 00:00:29.793
 Aoife is nine.
 
 10
-00:00:29.963 --> 00:00:33.203
+00:00:29.843 --> 00:00:33.103
 She picks what she loves: football, space and drawing.
 
 11
-00:00:33.253 --> 00:00:36.163
-Then she becomes her own superhero, Captain Comet!
+00:00:33.153 --> 00:00:36.463
+Then she names her AI tutor anything she likes: Pixel!
 
 12
-00:00:36.213 --> 00:00:40.683
+00:00:36.513 --> 00:00:40.935
 From her first answers, a Bayesian model tracks what she knows, and what to review next.
 
 13
-00:00:41.613 --> 00:00:42.813
+00:00:41.880 --> 00:00:43.080
 Here's the difference.
 
 14
-00:00:42.863 --> 00:00:46.533
+00:00:43.130 --> 00:00:46.800
 Aoife asks a general chatbot: what's three quarters plus a half?
 
 15
-00:00:46.583 --> 00:00:48.953
+00:00:46.850 --> 00:00:49.220
 It hands her the answer, and she copies it.
 
 16
-00:00:49.003 --> 00:00:51.423
+00:00:49.270 --> 00:00:51.690
 GranthAI asks her to try first.
 
 17
-00:00:51.473 --> 00:00:58.101
+00:00:51.740 --> 00:00:58.368
 When she answers four sixths, it spots the exact mistake, draws the pieces, and lets her find five quarters herself.
 
 18
-00:00:59.047 --> 00:01:01.067
+00:00:59.313 --> 00:01:01.333
 It works for every kind of question.
 
 19
-00:01:01.117 --> 00:01:08.167
+00:01:01.383 --> 00:01:08.433
 Ask it to write your science homework, and it opens your teacher's notes and a leaf diagram, then asks what the plant needs from the sun.
 
 20
-00:01:08.217 --> 00:01:12.067
+00:01:08.483 --> 00:01:12.333
 Ask for help revising, and it builds a quiz on your weakest topics.
 
 21
-00:01:12.117 --> 00:01:13.807
+00:01:12.383 --> 00:01:14.073
 It never hands out answers.
 
 22
-00:01:13.857 --> 00:01:15.183
+00:01:14.123 --> 00:01:15.449
 It helps children reach them.
 
 23
-00:01:16.113 --> 00:01:17.983
-And Aoife can simply talk it through!
+00:01:16.380 --> 00:01:20.702
+And Aoife can simply talk it through, on a video call with Pixel, her own Zilo.
 
 24
-00:01:18.033 --> 00:01:22.613
-On a video call, she explains her thinking to Zilo, our animated AI tutor.
+00:01:20.752 --> 00:01:25.759
+Umm, I'm not sure, but three plus one is four, and four plus two is six, so four sixths?
 
 25
-00:01:22.663 --> 00:01:29.473
-Built for young voices, accents and home languages, Zilo turns her spoken reasoning into the exact misconception behind it.
+00:01:25.809 --> 00:01:31.886
+Its speech engine, tuned for children's voices and accents, hears the misconception behind her reasoning.
 
 26
-00:01:29.523 --> 00:01:35.858
-When she pauses, says she's not sure, or tries again, Zilo slows down, rephrases, and draws a picture.
+00:01:31.936 --> 00:01:36.731
+Ooh, good thinking, Aoife, let's slow down and look at my drawing: how many quarters are there?
 
 27
-00:01:35.908 --> 00:01:42.096
-It even coaches reading aloud, and responds to what children say, never how they feel, with no recordings kept.
+00:01:36.781 --> 00:01:41.504
+Zilo coaches reading aloud too, and responds to what children say, never how they feel.
 
 28
-00:01:43.013 --> 00:01:45.823
+00:01:42.447 --> 00:01:45.257
 Her feed follows her interests, to keep her curious.
 
 29
-00:01:45.873 --> 00:01:51.943
+00:01:45.307 --> 00:01:51.377
 Gentle check-ins let her share how she feels, and if something is wrong, GranthAI never keeps secrets.
 
 30
-00:01:51.993 --> 00:01:53.753
+00:01:51.427 --> 00:01:53.187
 It connects her with a trusted adult.
 
 31
-00:01:54.680 --> 00:01:56.210
+00:01:54.113 --> 00:01:55.643
 Now picture four schools.
 
 32
-00:01:56.260 --> 00:01:57.880
+00:01:55.693 --> 00:01:57.313
 Each child is a node.
 
 33
-00:01:57.930 --> 00:02:05.900
+00:01:57.363 --> 00:02:05.333
 Our algorithms link children who share the same passions, across school walls, into clusters: a space club, a coding crew, an art studio.
 
 34
-00:02:05.950 --> 00:02:08.153
+00:02:05.383 --> 00:02:07.586
 Aoife joins pupils from two other schools.
 
 35
-00:02:09.080 --> 00:02:14.760
+00:02:08.513 --> 00:02:14.193
 Each club is matched with a vetted retired teacher as a mentor, by subject, language and time.
 
 36
-00:02:14.810 --> 00:02:18.629
+00:02:14.243 --> 00:02:18.062
 Children gain role models, and retired teachers, meaningful work.
 
 37
-00:02:19.547 --> 00:02:21.237
+00:02:18.980 --> 00:02:20.670
 Teachers get their time back.
 
 38
-00:02:21.287 --> 00:02:28.663
+00:02:20.720 --> 00:02:28.096
 Schools upload their own curriculum and notes, and GranthAI shows where the class struggles, then helps plan the next lesson around them.
 
 39
-00:02:29.580 --> 00:02:34.061
+00:02:29.013 --> 00:02:33.494
 Future Me turns interests into real routes, from college courses to apprenticeships.
 
 40
-00:02:34.980 --> 00:02:42.066
+00:02:34.413 --> 00:02:41.499
 And it's safe by design: no ads, no selling data, no emotion detection, built for GDPR and the EU AI Act.
 
 41
-00:02:42.980 --> 00:02:45.150
+00:02:42.413 --> 00:02:44.583
 We are starting in Ireland's DEIS schools.
 
 42
-00:02:45.200 --> 00:02:46.580
+00:02:44.633 --> 00:02:46.013
 Next, the UK.
 
 43
-00:02:46.630 --> 00:02:50.130
+00:02:46.063 --> 00:02:49.563
 Then Europe, where millions of children learn in a second language.
 
 44
-00:02:50.180 --> 00:02:54.020
+00:02:49.613 --> 00:02:53.453
 And one day, every community where one tablet serves a whole class.
 
 45
-00:02:54.070 --> 00:02:55.020
+00:02:53.503 --> 00:02:54.453
 GranthAI.
 
 46
-00:02:55.070 --> 00:02:56.446
+00:02:54.503 --> 00:02:55.879
 Innovation starts with you.
 

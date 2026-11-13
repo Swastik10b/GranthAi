@@ -99,4 +99,37 @@
     renderPlans(b.dataset.region);
   }));
   renderPlans('ie');
+
+  // ---------- Zilo: animated tutor in the Voice Tutor card ----------
+  const zStage = document.getElementById('zilo-stage');
+  if (zStage && window.Zilo) {
+    zStage.innerHTML = Zilo.svg('zilo-live');
+    const z = Zilo.live(zStage.querySelector('svg'), { expr: 'happy' });
+    const bubbles = document.querySelectorAll('#vchat .b, #vchat .signal');
+    const show = n => bubbles.forEach((b, i) => b.classList.toggle('hide', i >= n));
+    // a short loop: Zilo waves, listens to the child, thinks about the reasoning, then answers
+    const steps = [
+      [0, () => { show(0); z.set('happy'); z.wave(1900); }],
+      [2200, () => { show(1); z.set('listen'); }],
+      [4400, () => { show(2); z.set('thinking'); }],
+      [6200, () => { show(3); z.talk(2600); }],
+      [8900, () => { z.set('grin'); }],
+      [10600, () => { z.set('surprised'); }],
+      [11200, () => { z.set('happy'); }],
+    ];
+    let timers = [], running = false;
+    const run = () => { timers.forEach(clearTimeout); timers = steps.map(([t, f]) => setTimeout(f, t)); timers.push(setTimeout(run, 13500)); };
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) show(3);
+    else new IntersectionObserver((es, ob) => es.forEach(e => { if (e.isIntersecting && !running) { running = true; run(); ob.disconnect(); } }), { threshold: 0.35 }).observe(zStage);
+    const input = document.getElementById('tutor-name');
+    if (input) input.addEventListener('input', () => {
+      const n = input.value.trim() || 'Zilo';
+      document.querySelectorAll('.tutor-name').forEach(el => { el.textContent = n; });
+      zStage.setAttribute('aria-label', `${n}, GranthAI's animated AI tutor`);
+      z.wave(1200); z.set('grin'); setTimeout(() => z.set('happy'), 1300);
+      try { localStorage.setItem('granthai-tutor-name', n); } catch (e) { /* storage unavailable */ }
+    });
+  }
 })();
+

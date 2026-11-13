@@ -1,0 +1,26 @@
+{
+ "id": "s05v_voice",
+ "gap": 0.3,
+ "lines": [
+  {
+   "who": "narrator",
+   "text": "And Aoife can simply talk it through, on a video call with Pixel, her own Zilo."
+  },
+  {
+   "who": "aoife",
+   "text": "Umm, I'm not sure, but three plus one is four, and four plus two is six, so four sixths?"
+  },
+  {
+   "who": "narrator",
+   "text": "Its speech engine, tuned for children's voices and accents, hears the misconception behind her reasoning."
+  },
+  {
+   "who": "zilo",
+   "text": "Ooh, good thinking, Aoife, let's slow down and look at my drawing: how many quarters are there?"
+  },
+  {
+   "who": "narrator",
+   "text": "Zilo coaches reading aloud too, and responds to what children say, never how they feel."
+  }
+ ]
+}

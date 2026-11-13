@@ -115,23 +115,26 @@
             <span class="tagline">Voice and video AI <em>In development</em></span>
             <h3>GranthAI Voice Tutor</h3>
             <div class="voice-demo">
-                <img class="zilo" src="assets/zilo.png" width="150" height="286" alt="Zilo, GranthAI's animated AI tutor: a friendly purple character in a red cap and a jacket with the GranthAI logo">
-                <div class="vchat">
-                    <div class="b kid"><small>Captain Comet (Aoife), speaking</small>Umm&hellip; I&rsquo;m not sure. Is it four sixths?<div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+                <div class="zilo-stage" id="zilo-stage" aria-label="Zilo, GranthAI's animated AI tutor, blinking, waving and reacting during a lesson"></div>
+                <div class="vchat" id="vchat">
+                    <div class="b kid"><small>Aoife, speaking</small>Umm&hellip; I&rsquo;m not sure. Is it four sixths?<div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
                     <span class="signal">Learning signals: long pause &middot; &ldquo;not sure&rdquo; &middot; second attempt</span>
-                    <div class="b"><small>Zilo</small>Good thinking, Captain Comet! Let&rsquo;s slow down. Can you draw three quarters for me first?</div>
+                    <div class="b"><small class="tutor-name">Zilo</small>Good thinking, Aoife! Let&rsquo;s slow down. Can you draw three quarters for me first?</div>
                 </div>
             </div>
+            <div class="rename">
+                <label for="tutor-name">Name your tutor</label>
+                <input id="tutor-name" type="text" maxlength="18" value="Zilo" autocomplete="off" spellcheck="false">
+                <span class="hint">Any name a child likes, even a favourite film or anime character. It stays the same GranthAI tutor.</span>
+            </div>
             <p>Children talk with Zilo, GranthAI&rsquo;s animated AI tutor, by voice or video call: explaining their thinking out loud,
-            practising reading and asking questions in their own words, like a call with a patient tutor who never runs out of time.</p>
+            practising reading and asking questions in their own words.</p>
             <ul>
-                <li><b>Spoken reasoning, understood.</b> Zilo turns a child&rsquo;s think-aloud explanation into text and links it to our misconception model, so it hears <i>why</i> an answer went wrong, not just that it did.</li>
-                <li><b>Notices when a learner is stuck.</b> Zilo adapts to learning signals such as a long silence, repeated attempts or the words &ldquo;I don&rsquo;t get it&rdquo;, then slows down, rephrases or switches to a picture.</li>
-                <li><b>Built for young voices.</b> Speech recognition tuned for children&rsquo;s voices, accents and home languages, with switching between English and Irish, Polish or Ukrainian mid-conversation, and natural turn-taking for ages 8 to 17.</li>
-                <li><b>Reading aloud, coached.</b> Zilo listens as children read, tracks fluency and the words they find hard, and gives teachers a simple reading-progress view.</li>
-                <li><b>Your own superhero.</b> Every child can choose a superhero identity, a hero name, colours and a power, and Zilo greets them by it: Aoife becomes Captain Comet.</li>
-                <li><b>Lawful by design.</b> Zilo works from a child&rsquo;s words, answers and requests for help. It never infers emotions from voice or face, as the EU AI Act requires in schools; audio is transcribed and deleted straight away; voice is optional; and Zilo always says it is an AI.</li>
+                <li><b>Speech-to-reasoning engine.</b> Speech recognition tuned for children&rsquo;s voices, accents and home languages feeds our misconception model, so Zilo hears <i>why</i> an answer went wrong, not just that it did.</li>
+                <li><b>Adaptive spoken dialogue.</b> Real-time turn-taking that waits through a child&rsquo;s pauses and responds to learning signals (a silence, a retry, &ldquo;I&rsquo;m not sure&rdquo;) by slowing down, rephrasing or drawing.</li>
+                <li><b>An expressive tutor of their own.</b> Zilo blinks, waves and reacts to each answer in a warm, child-friendly voice, under whatever name the child chooses.</li>
             </ul>
+            <p class="lawful">Reacts to words and answers, never to inferred emotions (EU AI Act) &middot; audio deleted after transcription &middot; always says it is an AI</p>
         </article>
         <article class="flag-card reveal" id="curriculum">
             <span class="tagline">Curriculum Integration Layer</span>
@@ -253,9 +256,9 @@
     </p>
     <div class="video-frame">
         <video controls preload="metadata" poster="assets/demo-poster-v4.jpg" playsinline>
-            <source src="assets/granthai-demo-v5.mp4" type="video/mp4">
-            <track kind="captions" src="assets/granthai-demo-v5.vtt" srclang="en" label="English" default>
-            Your browser cannot play this video. <a href="assets/granthai-demo-v5.mp4">Download the demo</a>.
+            <source src="assets/granthai-demo-v6.mp4" type="video/mp4">
+            <track kind="captions" src="assets/granthai-demo-v6.vtt" srclang="en" label="English" default>
+            Your browser cannot play this video. <a href="assets/granthai-demo-v6.mp4">Download the demo</a>.
         </video>
     </div>
     <p class="video-note">Children, schools and mentors in the demo are fictional. The general chatbot reply is an illustrative reconstruction of typical behaviour, not a recording.</p>
@@ -584,7 +587,8 @@
     <div><a href="#about">About</a><a href="#app">Inside the app</a><a href="#survey">Schools</a><a href="#team">Team</a></div>
 </footer>
 
-<script src="app-demo.js?v=7" defer></script>
-<script src="site.js?v=4" defer></script>
+<script src="app-demo.js?v=8" defer></script>
+<script src="zilo.js?v=1"></script>
+<script src="site.js?v=5" defer></script>
 </body>
 </html>
