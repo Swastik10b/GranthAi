@@ -35,12 +35,12 @@ def pad(freqs, dur, amp):
 def main(seconds, out):
     seconds = float(seconds)
     n = int(seconds * SR)
-    mix = np.zeros(n + SR * 6)
+    mix = np.zeros(n + SR * 20)
     # D, A, Bm, G  (root midi numbers around D3)
     chords = [(50, [62, 66, 69]), (45, [61, 64, 69]), (47, [62, 66, 71]), (43, [62, 67, 71])]
     bar = 4 * BEAT
     t, k = 0.0, 0
-    while t < seconds + 2:
+    while t < seconds:
         root, tri = chords[k % 4]
         span = 2 * bar
         i0 = int(t * SR)
