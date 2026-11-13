@@ -509,7 +509,7 @@
     checkin: ['Wellbeing, safely', 'Children choose how they feel. If they’re struggling, GranthAI offers to connect them with a trusted adult. Try typing “someone hurt me” to see the safety protocol.',
       ['Self-reported only. No emotion detection from faces or voices, as the EU AI Act requires in schools.', 'GranthAI never promises secrecy. Disclosures of harm go to the school’s designated liaison person under Children First.', 'Irish helplines are built in: 112/999 and Childline 1800 66 66 66.']],
     clusters: ['Clubs across schools', 'Press “Find my groups” to watch 24 children from four schools cluster by shared interests. Then GranthAI forms a club for the child that mixes schools.',
-      ['k-means clustering on interest vectors, seeded with k-means++.', 'A constraint step builds clubs of four from at least two schools, ranked by similarity.', 'Teachers approve and supervise every cross-school activity.']],
+      ['Advanced clustering on interest embeddings. This demo uses a fast centroid method; our research evaluates spectral, density-based (HDBSCAN) and mixture-model clustering.', 'A constraint step builds clubs of four from at least two schools, ranked by similarity.', 'Teachers approve and supervise every cross-school activity.']],
     mentors: ['The right mentor for each club', 'Each club is matched with a vetted retired teacher. The score weighs subject fit, a shared language and a shared free slot.',
       ['Subject fit is the cosine similarity between the club’s interests and the mentor’s expertise.', 'Across all clubs, a stable-matching step makes sure no mentor is overbooked.', 'Change the language on the profile screen to see the ranking change.']],
     teacher: ['Time back for teachers', 'The class dashboard turns thousands of answers into a few decisions: what to re-teach, who to check on and what to do outside.',
@@ -519,7 +519,7 @@
   };
   function explain(k) {
     const [h, p, li] = EXPLAIN[k];
-    explainEl.innerHTML = `<h3>${h}</h3><p>${p}</p><div class="how"><h4>How it works</h4><ul>${li.map(x => `<li>${x}</li>`).join('')}</ul></div>
+    explainEl.innerHTML = `<h3>${h}</h3><p>${p}</p><div class="how"><h4>Methods</h4><ul>${li.map(x => `<li>${x}</li>`).join('')}</ul></div>
       <p class="demo-note">Demo data only. Names, schools and mentors are fictional.</p>`;
   }
 
